@@ -29,9 +29,15 @@ export const MainLayout = ({ children }: MainLayoutProps) => {
 
           {/* Central Navigation */}
           <nav className="hidden lg:flex items-center gap-6">
-            <CyberButton variant="ghost" size="sm">Recommendations</CyberButton>
-            <CyberButton variant="ghost" size="sm">Navigator</CyberButton>
-            <CyberButton variant="ghost" size="sm">Archive</CyberButton>
+            <CyberButton variant="ghost" size="sm" onClick={() => window.location.href = "/recommendations"}>
+              Recommendations
+            </CyberButton>
+            <CyberButton variant="ghost" size="sm" onClick={() => window.location.href = "/navigator"}>
+              Navigator
+            </CyberButton>
+            <CyberButton variant="ghost" size="sm" onClick={() => window.location.href = "/archive"}>
+              Archive
+            </CyberButton>
             <CyberButton variant="ghost" size="sm">Trends</CyberButton>
           </nav>
 

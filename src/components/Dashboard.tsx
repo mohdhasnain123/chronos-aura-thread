@@ -22,13 +22,11 @@ export const Dashboard = () => {
   }, []);
 
   const handleNavigateToStore = (storeId: string) => {
-    console.log(`Navigating to store: ${storeId}`);
-    // Here you would integrate with the navigation system
+    window.location.href = `/navigator?storeId=${storeId}`;
   };
 
   const handleViewStoreDetails = (storeId: string) => {
-    console.log(`Viewing details for store: ${storeId}`);
-    // Here you would route to store details page
+    window.location.href = `/store/${storeId}`;
   };
 
   const totalSpent = recentPurchases.reduce((sum, purchase) => sum + purchase.price, 0);
@@ -123,7 +121,7 @@ export const Dashboard = () => {
               <h3 className="text-xl font-orbitron font-semibold kinetic-text">
                 Recent Acquisitions
               </h3>
-              <CyberButton variant="outline" size="sm">
+              <CyberButton variant="outline" size="sm" onClick={() => window.location.href = "/archive"}>
                 <Clock className="w-4 h-4 mr-1" />
                 View Archive
               </CyberButton>
@@ -172,13 +170,13 @@ export const Dashboard = () => {
               AuraGrid Navigator
             </h3>
             <div className="space-y-2">
-              <CyberButton variant="neural" size="sm" className="w-full justify-start">
+              <CyberButton variant="neural" size="sm" className="w-full justify-start" onClick={() => window.location.href = "/navigator"}>
                 Nearby Stores
               </CyberButton>
-              <CyberButton variant="hologram" size="sm" className="w-full justify-start">
+              <CyberButton variant="hologram" size="sm" className="w-full justify-start" onClick={() => window.location.href = "/navigator"}>
                 Virtual Tours
               </CyberButton>
-              <CyberButton variant="outline" size="sm" className="w-full justify-start">
+              <CyberButton variant="outline" size="sm" className="w-full justify-start" onClick={() => window.location.href = "/navigator"}>
                 Route Planner
               </CyberButton>
             </div>
