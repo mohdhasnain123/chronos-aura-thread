@@ -1,0 +1,46 @@
+{
+  "currentTrends": [
+    {
+      "category": "Neural Interface Wear",
+      "popularity": 94,
+      "change": "+12%",
+      "color": "#00ffff"
+    },
+    {
+      "category": "Bio-Responsive Fabrics", 
+      "popularity": 89,
+      "change": "+8%",
+      "color": "#ff00ff"
+    },
+    {
+      "category": "AR-Compatible Accessories",
+      "popularity": 76,
+      "change": "+15%", 
+      "color": "#00ff00"
+    },
+    {
+      "category": "Quantum-Engineered Materials",
+      "popularity": 71,
+      "change": "+5%",
+      "color": "#ffff00"
+    },
+    {
+      "category": "Vintage Cyberwear",
+      "popularity": 68,
+      "change": "-3%",
+      "color": "#ff6600"
+    }
+  ],
+  "emergingColors": [
+    { "name": "Neural Blue", "hex": "#00a8ff", "usage": "+45%" },
+    { "name": "Quantum Purple", "hex": "#8c7ae6", "usage": "+38%" },
+    { "name": "Bio Green", "hex": "#44bd32", "usage": "+29%" },
+    { "name": "Cyber Magenta", "hex": "#e84393", "usage": "+22%" }
+  ],
+  "priceRanges": {
+    "budget": { "range": "100-500", "percentage": 25 },
+    "mid": { "range": "500-1500", "percentage": 45 },
+    "premium": { "range": "1500-3000", "percentage": 25 },
+    "luxury": { "range": "3000+", "percentage": 5 }
+  }
+}

@@ -18,23 +18,47 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				orbitron: ['Orbitron', 'monospace'],
+				inter: ['Inter', 'sans-serif']
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
+				surface: {
+					DEFAULT: 'hsl(var(--surface))',
+					foreground: 'hsl(var(--surface-foreground))'
+				},
+				overlay: {
+					DEFAULT: 'hsl(var(--overlay))',
+					foreground: 'hsl(var(--overlay-foreground))'
+				},
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
-					foreground: 'hsl(var(--primary-foreground))'
+					foreground: 'hsl(var(--primary-foreground))',
+					glow: 'hsl(var(--primary-glow))',
+					dim: 'hsl(var(--primary-dim))'
 				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
-					foreground: 'hsl(var(--secondary-foreground))'
+					foreground: 'hsl(var(--secondary-foreground))',
+					glow: 'hsl(var(--secondary-glow))',
+					dim: 'hsl(var(--secondary-dim))'
 				},
 				destructive: {
 					DEFAULT: 'hsl(var(--destructive))',
 					foreground: 'hsl(var(--destructive-foreground))'
+				},
+				warning: {
+					DEFAULT: 'hsl(var(--warning))',
+					foreground: 'hsl(var(--warning-foreground))'
+				},
+				success: {
+					DEFAULT: 'hsl(var(--success))',
+					foreground: 'hsl(var(--success-foreground))'
 				},
 				muted: {
 					DEFAULT: 'hsl(var(--muted))',
@@ -42,7 +66,9 @@ export default {
 				},
 				accent: {
 					DEFAULT: 'hsl(var(--accent))',
-					foreground: 'hsl(var(--accent-foreground))'
+					foreground: 'hsl(var(--accent-foreground))',
+					glow: 'hsl(var(--accent-glow))',
+					dim: 'hsl(var(--accent-dim))'
 				},
 				popover: {
 					DEFAULT: 'hsl(var(--popover))',
@@ -52,6 +78,17 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+				hologram: {
+					base: 'hsl(var(--hologram-base))',
+					shift: 'hsl(var(--hologram-shift))'
+				},
+				neural: {
+					pulse: 'hsl(var(--neural-pulse))'
+				},
+				grid: {
+					line: 'hsl(var(--grid-line))'
+				},
+				chrome: 'hsl(var(--chrome))',
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',

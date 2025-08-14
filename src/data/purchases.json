@@ -1,0 +1,72 @@
+[
+  {
+    "id": "purchase-001",
+    "storeId": "store-001",
+    "storeName": "NeuraFit",
+    "itemName": "Neural Sync Jacket",
+    "itemId": "item-001",
+    "price": 1299,
+    "date": "2035-03-15T14:30:00Z",
+    "category": "outerwear",
+    "color": "Cyber Blue",
+    "size": "M",
+    "thumbnail": "/api/placeholder/80/80",
+    "rating": 5
+  },
+  {
+    "id": "purchase-002", 
+    "storeId": "store-004",
+    "storeName": "Matrix Streetwear",
+    "itemName": "Digital Graffiti Jacket",
+    "itemId": "item-007",
+    "price": 899,
+    "date": "2035-03-10T09:15:00Z",
+    "category": "outerwear",
+    "color": "Neon Green",
+    "size": "L",
+    "thumbnail": "/api/placeholder/80/80",
+    "rating": 4
+  },
+  {
+    "id": "purchase-003",
+    "storeId": "store-002",
+    "storeName": "Chronos Vintage", 
+    "itemName": "Classic LED Sneakers",
+    "itemId": "item-004",
+    "price": 459,
+    "date": "2035-03-05T16:45:00Z",
+    "category": "footwear",
+    "color": "Retro White",
+    "size": "10",
+    "thumbnail": "/api/placeholder/80/80",
+    "rating": 4
+  },
+  {
+    "id": "purchase-004",
+    "storeId": "store-003",
+    "storeName": "Quantum Threads",
+    "itemName": "Molecular Mesh Top",
+    "itemId": "item-006", 
+    "price": 799,
+    "date": "2035-02-28T11:20:00Z",
+    "category": "tops",
+    "color": "Quantum Purple",
+    "size": "S",
+    "thumbnail": "/api/placeholder/80/80",
+    "rating": 5
+  },
+  {
+    "id": "purchase-005",
+    "storeId": "store-001",
+    "storeName": "NeuraFit",
+    "itemName": "Adaptive Climate Pants",
+    "itemId": "item-002",
+    "price": 899,
+    "date": "2035-02-20T13:10:00Z",
+    "category": "bottoms",
+    "color": "Neural Black",
+    "size": "M", 
+    "thumbnail": "/api/placeholder/80/80",
+    "rating": 5
+  }
+]

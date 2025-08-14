@@ -2,41 +2,96 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* AuraThread: Chronos Apparel Navigator - Futuristic Design System 2035 */
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
+    /* Futuristic Color Palette - Deep Space Foundation */
+    --background: 220 35% 3%;
+    --foreground: 180 100% 90%;
+    
+    /* Surface & Card Elements */
+    --card: 220 30% 8%;
+    --card-foreground: 180 100% 88%;
+    --surface: 220 25% 12%;
+    --surface-foreground: 180 80% 85%;
+    
+    /* Holographic Overlays */
+    --popover: 220 30% 8%;
+    --popover-foreground: 180 100% 88%;
+    --overlay: 220 20% 5%;
+    --overlay-foreground: 180 100% 90%;
+    
+    /* Primary - Electric Cyan */
+    --primary: 180 100% 50%;
+    --primary-foreground: 220 40% 5%;
+    --primary-glow: 180 100% 60%;
+    --primary-dim: 180 80% 30%;
+    
+    /* Secondary - Neon Magenta */
+    --secondary: 300 100% 60%;
+    --secondary-foreground: 220 40% 5%;
+    --secondary-glow: 300 100% 70%;
+    --secondary-dim: 300 80% 40%;
+    
+    /* Accent - Electric Green */
+    --accent: 120 100% 50%;
+    --accent-foreground: 220 40% 5%;
+    --accent-glow: 120 100% 60%;
+    --accent-dim: 120 80% 30%;
+    
+    /* Muted - Deep Purple */
+    --muted: 260 25% 15%;
+    --muted-foreground: 180 50% 65%;
+    
+    /* Status Colors */
+    --destructive: 0 100% 60%;
+    --destructive-foreground: 220 40% 5%;
+    --warning: 45 100% 55%;
+    --warning-foreground: 220 40% 5%;
+    --success: 120 100% 45%;
+    --success-foreground: 220 40% 5%;
+    
+    /* Borders & Inputs */
+    --border: 220 20% 20%;
+    --border-glow: 180 60% 40%;
+    --input: 220 25% 12%;
+    --ring: 180 100% 50%;
+    
+    /* Holographic Effects */
+    --hologram-base: 200 100% 50%;
+    --hologram-shift: 300 100% 60%;
+    --neural-pulse: 260 80% 50%;
+    
+    /* Grid & Data Visualization */
+    --grid-line: 180 30% 25%;
+    --data-flow: 120 80% 40%;
+    --chrome: 0 0% 80%;
+    
+    /* Geometric & Layout */
+    --radius: 0.75rem;
+    --radius-lg: 1rem;
+    --radius-xl: 1.5rem;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-secondary: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--secondary-glow)));
+    --gradient-surface: linear-gradient(145deg, hsl(var(--card)), hsl(var(--surface)));
+    --gradient-hologram: linear-gradient(45deg, hsl(var(--hologram-base) / 0.3), hsl(var(--hologram-shift) / 0.2));
+    --gradient-neural: linear-gradient(90deg, hsl(var(--neural-pulse) / 0.8), hsl(var(--primary) / 0.6));
+    
+    /* Shadows & Glows */
+    --shadow-cyber: 0 0 20px hsl(var(--primary) / 0.3);
+    --shadow-neural: 0 0 30px hsl(var(--neural-pulse) / 0.4);
+    --shadow-depth: 0 8px 32px hsl(220 40% 2% / 0.6);
+    --glow-pulse: 0 0 40px hsl(var(--accent) / 0.6);
+    
+    /* Transitions */
+    --transition-cyber: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-neural: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --transition-hologram: all 0.2s ease-out;
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +155,153 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-inter overflow-x-hidden;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Orbitron', monospace;
+    font-weight: 600;
+  }
+}
+
+@layer components {
+  /* Neural Grid Background */
+  .neural-grid {
+    background-image: 
+      linear-gradient(hsl(var(--grid-line) / 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--grid-line) / 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    position: relative;
+  }
+  
+  .neural-grid::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gradient-neural);
+    opacity: 0.05;
+    pointer-events: none;
+  }
+  
+  /* Holographic Effects */
+  .hologram {
+    background: var(--gradient-hologram);
+    backdrop-filter: blur(10px);
+    border: 1px solid hsl(var(--border-glow) / 0.3);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .hologram::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(45deg, transparent 30%, hsl(var(--primary) / 0.1) 50%, transparent 70%);
+    transform: translateX(-100%);
+    animation: hologram-scan 3s ease-in-out infinite;
+  }
+  
+  /* Cyber Glow Effects */
+  .cyber-glow {
+    box-shadow: var(--shadow-cyber);
+    transition: var(--transition-cyber);
+  }
+  
+  .cyber-glow:hover {
+    box-shadow: var(--glow-pulse);
+    transform: translateY(-2px);
+  }
+  
+  /* Data Stream Animation */
+  .data-stream {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .data-stream::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: var(--gradient-primary);
+    animation: data-flow 2s ease-in-out infinite;
+  }
+  
+  /* Pulse Animation */
+  .neural-pulse {
+    animation: neural-pulse 2s ease-in-out infinite;
+  }
+  
+  /* Typography Effects */
+  .kinetic-text {
+    background: var(--gradient-primary);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: text-glow 3s ease-in-out infinite alternate;
+  }
+  
+  /* Interactive Hover States */
+  .hover-hologram {
+    transition: var(--transition-hologram);
+  }
+  
+  .hover-hologram:hover {
+    background: var(--gradient-hologram);
+    backdrop-filter: blur(15px);
+    transform: scale(1.02);
+  }
+}
+
+@layer utilities {
+  /* Custom Animations */
+  @keyframes hologram-scan {
+    0% { transform: translateX(-100%) skewX(-15deg); }
+    50% { transform: translateX(100%) skewX(-15deg); }
+    100% { transform: translateX(200%) skewX(-15deg); }
+  }
+  
+  @keyframes data-flow {
+    0% { left: -100%; opacity: 0; }
+    50% { opacity: 1; }
+    100% { left: 100%; opacity: 0; }
+  }
+  
+  @keyframes neural-pulse {
+    0%, 100% { 
+      box-shadow: 0 0 20px hsl(var(--neural-pulse) / 0.3);
+      transform: scale(1);
+    }
+    50% { 
+      box-shadow: 0 0 40px hsl(var(--neural-pulse) / 0.6);
+      transform: scale(1.05);
+    }
+  }
+  
+  @keyframes text-glow {
+    0% { filter: brightness(1) drop-shadow(0 0 5px hsl(var(--primary) / 0.5)); }
+    100% { filter: brightness(1.2) drop-shadow(0 0 15px hsl(var(--primary) / 0.8)); }
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  /* Utility Classes */
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  .text-glow {
+    text-shadow: 0 0 10px hsl(var(--primary) / 0.8);
+  }
+  
+  .border-glow {
+    border-color: hsl(var(--border-glow));
+    box-shadow: 0 0 10px hsl(var(--border-glow) / 0.3);
   }
 }
