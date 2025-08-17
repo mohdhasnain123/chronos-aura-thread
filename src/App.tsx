@@ -8,6 +8,7 @@ import Recommendations from "./pages/Recommendations";
 import Navigator from "./pages/Navigator";
 import StoreDetails from "./pages/StoreDetails";
 import Archive from "./pages/Archive";
+import Trends from "./pages/Trends";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,6 +25,7 @@ const App = () => (
           <Route path="/navigator" element={<Navigator />} />
           <Route path="/store/:storeId" element={<StoreDetails />} />
           <Route path="/archive" element={<Archive />} />
+          <Route path="/trends" element={<Trends />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

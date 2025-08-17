@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { useNavigate } from "react-router-dom";
 import { User, Settings, Search, Bell, Menu } from "lucide-react";
 import { CyberButton } from "@/components/ui/cyber-button";
 import { Card } from "@/components/ui/card";
@@ -9,6 +10,7 @@ interface MainLayoutProps {
 }
 
 export const MainLayout = ({ children }: MainLayoutProps) => {
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-background neural-grid">
       {/* Neural Header */}
@@ -29,16 +31,18 @@ export const MainLayout = ({ children }: MainLayoutProps) => {
 
           {/* Central Navigation */}
           <nav className="hidden lg:flex items-center gap-6">
-            <CyberButton variant="ghost" size="sm" onClick={() => window.location.href = "/recommendations"}>
+            <CyberButton variant="ghost" size="sm" onClick={() => navigate("/recommendations")}>
               Recommendations
             </CyberButton>
-            <CyberButton variant="ghost" size="sm" onClick={() => window.location.href = "/navigator"}>
+            <CyberButton variant="ghost" size="sm" onClick={() => navigate("/navigator")}>
               Navigator
             </CyberButton>
-            <CyberButton variant="ghost" size="sm" onClick={() => window.location.href = "/archive"}>
+            <CyberButton variant="ghost" size="sm" onClick={() => navigate("/archive")}>
               Archive
             </CyberButton>
-            <CyberButton variant="ghost" size="sm">Trends</CyberButton>
+            <CyberButton variant="ghost" size="sm" onClick={() => navigate("/trends")}>
+              Trends
+            </CyberButton>
           </nav>
 
           {/* User Actions */}
