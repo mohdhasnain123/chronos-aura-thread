@@ -79,48 +79,64 @@ const Navigator = () => {
               {/* Neural Grid Background */}
               <div className="absolute inset-0 bg-neural-grid opacity-20" />
               
-              {/* Map Surface */}
+              {/* Map Surface with improved visibility */}
               <div 
-                className="relative w-full h-full transition-transform duration-700 ease-out"
+                className="relative w-full h-full transition-transform duration-700 ease-out bg-gradient-to-br from-primary/10 to-accent/10"
                 style={{ 
                   transform: `translate(${-mapCenter.x}px, ${-mapCenter.y}px) scale(${mapZoom})`,
                 }}
               >
-                {/* Store Markers */}
-                {storesData.map((store, index) => (
-                  <div
-                    key={store.id}
-                    className={`absolute w-8 h-8 rounded-full border-2 cursor-pointer flex items-center justify-center transition-all duration-300 hover:scale-125 ${
-                      selectedStoreId === store.id 
-                        ? 'bg-accent border-accent shadow-lg cyber-glow' 
-                        : 'bg-primary border-accent hover:bg-accent hover:border-primary'
-                    }`}
-                    style={{
-                      left: `${20 + (store.locationCoords.x * 60)}%`,
-                      top: `${20 + (store.locationCoords.y * 50)}%`,
-                    }}
-                    onClick={() => setSelectedStoreId(store.id)}
-                  >
-                    <div className="w-4 h-4 bg-accent rounded-full animate-pulse" />
-                  </div>
-                ))}
+                {/* Store Markers with better positioning */}
+                {storesData.map((store, index) => {
+                  const xPos = 10 + (index % 4) * 20 + (store.locationCoords.x * 0.5);
+                  const yPos = 10 + Math.floor(index / 4) * 20 + (store.locationCoords.y * 0.3);
+                  
+                  return (
+                    <div
+                      key={store.id}
+                      className={`absolute w-12 h-12 rounded-full border-2 cursor-pointer flex items-center justify-center transition-all duration-300 hover:scale-125 ${
+                        selectedStoreId === store.id 
+                          ? 'bg-accent border-accent shadow-lg cyber-glow animate-pulse' 
+                          : 'bg-primary/80 border-accent hover:bg-accent hover:border-primary'
+                      }`}
+                      style={{
+                        left: `${xPos}%`,
+                        top: `${yPos}%`,
+                      }}
+                      onClick={() => setSelectedStoreId(store.id)}
+                      title={store.name}
+                    >
+                      <div className="w-6 h-6 bg-accent rounded-full animate-pulse" />
+                      
+                      {/* Store label */}
+                      <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-surface/90 backdrop-blur-sm px-2 py-1 rounded text-xs text-foreground whitespace-nowrap border border-primary/30">
+                        {store.name}
+                      </div>
+                    </div>
+                  );
+                })}
 
-                {/* Connection Lines between stores */}
+                {/* Connection Lines between stores with better visibility */}
                 <svg className="absolute inset-0 w-full h-full pointer-events-none">
                   {storesData.map((store, index) => {
                     if (index === 0) return null;
-                    const prevStore = storesData[index - 1];
+                    const prevIndex = index - 1;
+                    const prevXPos = 10 + (prevIndex % 4) * 20 + (storesData[prevIndex].locationCoords.x * 0.5);
+                    const prevYPos = 10 + Math.floor(prevIndex / 4) * 20 + (storesData[prevIndex].locationCoords.y * 0.3);
+                    const xPos = 10 + (index % 4) * 20 + (store.locationCoords.x * 0.5);
+                    const yPos = 10 + Math.floor(index / 4) * 20 + (store.locationCoords.y * 0.3);
+                    
                     return (
                       <line
                         key={`line-${store.id}`}
-                        x1={`${20 + (prevStore.locationCoords.x * 60)}%`}
-                        y1={`${24 + (prevStore.locationCoords.y * 50)}%`}
-                        x2={`${20 + (store.locationCoords.x * 60)}%`}
-                        y2={`${24 + (store.locationCoords.y * 50)}%`}
+                        x1={`${prevXPos + 3}%`}
+                        y1={`${prevYPos + 3}%`}
+                        x2={`${xPos + 3}%`}
+                        y2={`${yPos + 3}%`}
                         stroke="hsl(var(--accent))"
-                        strokeWidth="1"
-                        strokeOpacity="0.3"
-                        strokeDasharray="5,5"
+                        strokeWidth="2"
+                        strokeOpacity="0.5"
+                        strokeDasharray="8,4"
                         className="animate-pulse"
                       />
                     );
