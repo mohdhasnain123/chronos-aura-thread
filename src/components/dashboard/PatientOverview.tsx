@@ -1,0 +1,208 @@
+import React from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
+import { TrendingUp, Users, Activity, Heart, Brain, DollarSign, Clock, Wifi, Shield, Zap, MonitorSpeaker } from "lucide-react";
+
+const PatientOverview = () => {
+  // Comprehensive provider analytics
+  const utilizationMetrics = {
+    patientVolume: 1247,
+    bedOccupancy: 87,
+    avgStayDays: 4.2,
+    physicianProductivity: 94,
+    resourceUtilization: 89
+  };
+
+  const payerMixData = [
+    { type: "Medicare", percentage: 35, revenue: "$2.1M", color: "bg-gradient-primary" },
+    { type: "Private Insurance", percentage: 45, revenue: "$3.2M", color: "bg-gradient-secondary" },
+    { type: "Medicaid", percentage: 15, revenue: "$890K", color: "bg-gradient-accent" },
+    { type: "Self-Pay", percentage: 5, revenue: "$320K", color: "bg-warning" }
+  ];
+
+  const recoveryRates = [
+    { specialty: "Cardiology", rate: 94, patients: 156, trend: "up" },
+    { specialty: "Orthopedics", rate: 89, patients: 234, trend: "up" },
+    { specialty: "Neurology", rate: 91, patients: 87, trend: "stable" },
+    { specialty: "Oncology", rate: 86, patients: 145, trend: "down" }
+  ];
+
+  const iotDevices = [
+    { name: "Smart Monitors", active: 156, status: "online", lastSync: "2 min ago" },
+    { name: "Wearable Sensors", active: 234, status: "online", lastSync: "1 min ago" },
+    { name: "Ambulance Fleet", active: 12, status: "online", lastSync: "30 sec ago" },
+    { name: "AI Diagnostics", active: 8, status: "processing", lastSync: "Live" }
+  ];
+
+  const aiAgentMatrix = [
+    { type: "Personal AI", count: 156, function: "Patient Monitoring", status: "active" },
+    { type: "Payer AI", count: 4, function: "Claims Processing", status: "active" },
+    { type: "Provider AI", count: 1, function: "Resource Optimization", status: "active" },
+    { type: "Emergency AI", count: 8, function: "Critical Alert System", status: "standby" }
+  ];
+
+  return (
+    <div className="space-y-6">
+      {/* Utilization & Productivity Metrics */}
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+        <Card className="bg-gradient-card border-border shadow-md">
+          <CardContent className="p-4 text-center">
+            <TrendingUp className="h-6 w-6 text-primary mx-auto mb-2" />
+            <div className="text-2xl font-bold text-foreground">{utilizationMetrics.patientVolume}</div>
+            <div className="text-xs text-muted-foreground">Patient Volume</div>
+          </CardContent>
+        </Card>
+        <Card className="bg-gradient-card border-border shadow-md">
+          <CardContent className="p-4 text-center">
+            <Users className="h-6 w-6 text-secondary mx-auto mb-2" />
+            <div className="text-2xl font-bold text-foreground">{utilizationMetrics.bedOccupancy}%</div>
+            <div className="text-xs text-muted-foreground">Bed Occupancy</div>
+          </CardContent>
+        </Card>
+        <Card className="bg-gradient-card border-border shadow-md">
+          <CardContent className="p-4 text-center">
+            <Clock className="h-6 w-6 text-accent mx-auto mb-2" />
+            <div className="text-2xl font-bold text-foreground">{utilizationMetrics.avgStayDays}</div>
+            <div className="text-xs text-muted-foreground">Avg Stay (Days)</div>
+          </CardContent>
+        </Card>
+        <Card className="bg-gradient-card border-border shadow-md">
+          <CardContent className="p-4 text-center">
+            <Activity className="h-6 w-6 text-success mx-auto mb-2" />
+            <div className="text-2xl font-bold text-foreground">{utilizationMetrics.physicianProductivity}%</div>
+            <div className="text-xs text-muted-foreground">Physician RVUs</div>
+          </CardContent>
+        </Card>
+        <Card className="bg-gradient-card border-border shadow-md">
+          <CardContent className="p-4 text-center">
+            <Zap className="h-6 w-6 text-warning mx-auto mb-2" />
+            <div className="text-2xl font-bold text-foreground">{utilizationMetrics.resourceUtilization}%</div>
+            <div className="text-xs text-muted-foreground">Resource Usage</div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Payer Mix Analytics */}
+        <Card className="bg-gradient-card border-border shadow-md">
+          <CardHeader>
+            <CardTitle className="flex items-center space-x-2 text-foreground">
+              <DollarSign className="h-5 w-5 text-primary" />
+              <span>Payer Mix Analytics</span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {payerMixData.map((payer, index) => (
+              <div key={index} className="flex items-center justify-between p-3 bg-muted rounded-lg">
+                <div className="flex items-center space-x-3">
+                  <div className={`w-3 h-3 rounded-full ${payer.color}`}></div>
+                  <div>
+                    <div className="font-medium text-foreground">{payer.type}</div>
+                    <div className="text-sm text-muted-foreground">{payer.revenue}</div>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="font-semibold text-foreground">{payer.percentage}%</div>
+                  <Progress value={payer.percentage} className="w-16 h-2" />
+                </div>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+
+        {/* Recovery Rate by Specialty */}
+        <Card className="bg-gradient-card border-border shadow-md">
+          <CardHeader>
+            <CardTitle className="flex items-center space-x-2 text-foreground">
+              <Heart className="h-5 w-5 text-primary" />
+              <span>Recovery Rate Analysis</span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {recoveryRates.map((specialty, index) => (
+              <div key={index} className="flex items-center justify-between p-3 bg-muted rounded-lg">
+                <div>
+                  <div className="font-medium text-foreground">{specialty.specialty}</div>
+                  <div className="text-sm text-muted-foreground">{specialty.patients} patients</div>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <div className="text-right">
+                    <div className="font-semibold text-foreground">{specialty.rate}%</div>
+                    <div className={`text-xs ${specialty.trend === 'up' ? 'text-success' : specialty.trend === 'down' ? 'text-destructive' : 'text-muted-foreground'}`}>
+                      {specialty.trend === 'up' ? '↗' : specialty.trend === 'down' ? '↘' : '→'} {specialty.trend}
+                    </div>
+                  </div>
+                  <Progress value={specialty.rate} className="w-16 h-2" />
+                </div>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* IoMT Connected Devices */}
+        <Card className="bg-gradient-card border-border shadow-md">
+          <CardHeader>
+            <CardTitle className="flex items-center space-x-2 text-foreground">
+              <Wifi className="h-5 w-5 text-primary" />
+              <span>IoMT Device Network</span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {iotDevices.map((device, index) => (
+              <div key={index} className="flex items-center justify-between p-3 bg-muted rounded-lg">
+                <div className="flex items-center space-x-3">
+                  <div className={`w-3 h-3 rounded-full ${device.status === 'online' ? 'bg-success' : device.status === 'processing' ? 'bg-warning animate-pulse' : 'bg-muted'}`}></div>
+                  <div>
+                    <div className="font-medium text-foreground">{device.name}</div>
+                    <div className="text-sm text-muted-foreground">{device.active} active</div>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <Badge className={`${device.status === 'online' ? 'bg-success' : device.status === 'processing' ? 'bg-warning' : 'bg-muted'} text-white text-xs`}>
+                    {device.status}
+                  </Badge>
+                  <div className="text-xs text-muted-foreground mt-1">{device.lastSync}</div>
+                </div>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+
+        {/* AI Agent Matrix */}
+        <Card className="bg-gradient-card border-border shadow-md">
+          <CardHeader>
+            <CardTitle className="flex items-center space-x-2 text-foreground">
+              <Brain className="h-5 w-5 text-primary" />
+              <span>AI Agent Matrix</span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {aiAgentMatrix.map((agent, index) => (
+              <div key={index} className="flex items-center justify-between p-3 bg-muted rounded-lg cursor-pointer hover:bg-accent/10 transition-colors">
+                <div className="flex items-center space-x-3">
+                  <MonitorSpeaker className="h-4 w-4 text-primary" />
+                  <div>
+                    <div className="font-medium text-foreground">{agent.type}</div>
+                    <div className="text-sm text-muted-foreground">{agent.function}</div>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="font-semibold text-foreground">{agent.count}</div>
+                  <Badge className={`${agent.status === 'active' ? 'bg-success' : 'bg-warning'} text-white text-xs`}>
+                    {agent.status}
+                  </Badge>
+                </div>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+};
+
+export default PatientOverview;

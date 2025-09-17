@@ -1,133 +1,73 @@
-# AuraThread: Chronos Apparel Navigator
+# Welcome to your Lovable project
 
-A futuristic apparel store recommendation system for the year 2035, featuring neural-powered fashion intelligence and immersive cyberpunk aesthetics.
+## Project info
 
-## 🚀 Project Overview
+**URL**: https://lovable.dev/projects/414e3135-7f60-45f6-a66b-efc88a4e5671
 
-**AuraThread** is a highly interactive React application that serves as a personalized apparel store recommendation system. Built for an ultra-wide display format (3.88:1 aspect ratio), it leverages past purchase data to provide intelligent store suggestions and facilitate seamless navigation through a stunning neo-futuristic interface.
+## How can I edit this code?
 
-### ✨ Core Features
+There are several ways of editing your application.
 
-- **Neural Recommendations Engine**: AI-powered store suggestions based on purchase history and style preferences
-- **Holographic UI Elements**: Translucent overlays, glowing accents, and animated data streams
-- **AuraPulse Trend Monitor**: Real-time fashion trend visualization
-- **Interactive Store Cards**: Detailed store information with match scores and promotions
-- **Purchase History Archive**: Chronological timeline of user interactions
-- **Responsive Multi-Panel Layout**: Optimized for ultra-wide displays
+**Use Lovable**
 
-## 🎨 Design Philosophy
+Simply visit the [Lovable Project](https://lovable.dev/projects/414e3135-7f60-45f6-a66b-efc88a4e5671) and start prompting.
 
-### Aesthetic: Neo-Futuristic Cyberpunk (2035)
-- **Color Palette**: Deep space blues and purples with electric cyan, neon magenta, and green accents
-- **Typography**: Orbitron for headings (futuristic feel) + Inter for body text (readability)
-- **Visual Effects**: Holographic projections, neural scan lines, and kinetic typography
-- **Layout**: Command center aesthetics with multi-panel information display
+Changes made via Lovable will be committed automatically to this repo.
 
-### Key Visual Elements
-- Translucent holographic overlays
-- Animated neural grid backgrounds
-- Glowing accent lines and data streams
-- Floating geometric elements
-- Smooth cyber-styled transitions
+**Use your preferred IDE**
 
-## 🛠 Technology Stack
+If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
 
-- **Frontend**: React 18 with TypeScript
-- **Styling**: Tailwind CSS with custom design system
-- **UI Components**: shadcn/ui with custom cyberpunk variants
-- **State Management**: React Hooks
-- **Routing**: React Router DOM
-- **Build Tool**: Vite
-- **Icons**: Lucide React
+The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
 
-## 🎯 Target Display
+Follow these steps:
 
-**Aspect Ratio**: 7150 / 1840 (≈ 3.88:1)
-- Ultra-wide cinematic display format
-- Multi-panel layout with horizontal information flow
-- Extensive side-by-side data visualization
-- Command center-style interface design
+```sh
+# Step 1: Clone the repository using the project's Git URL.
+git clone <YOUR_GIT_URL>
 
-## 📁 Project Structure
+# Step 2: Navigate to the project directory.
+cd <YOUR_PROJECT_NAME>
 
-```
-src/
-├── components/
-│   ├── ui/                    # Base UI components
-│   │   └── cyber-button.tsx   # Custom cyberpunk button variants
-│   ├── AuraPulse.tsx         # Real-time trend monitor
-│   ├── Dashboard.tsx         # Main dashboard component
-│   ├── HeroSection.tsx       # Animated hero banner
-│   ├── MainLayout.tsx        # App-wide layout wrapper
-│   └── StoreCard.tsx         # Interactive store recommendation cards
-├── data/
-│   ├── stores.json           # Mock store data
-│   ├── purchases.json        # User purchase history
-│   └── trends.json           # Fashion trend data
-├── assets/                   # Generated images and assets
-└── pages/                    # Route components
-```
+# Step 3: Install the necessary dependencies.
+npm i
 
-## 🎮 Key Interactive Features
-
-### Store Recommendations
-- **Neural Match Scoring**: Percentage-based compatibility ratings
-- **AuraScore**: Community-driven quality ratings
-- **Live Promotions**: Dynamic promotional content
-- **Specialty Tags**: Categorized store capabilities (Bio-Tailoring, Smart Fabrics, etc.)
-
-### Data Visualization
-- **Purchase Timeline**: Interactive history with filtering
-- **Trend Streams**: Animated real-time fashion data
-- **Neural Activity Monitor**: User preference analytics
-- **Quick Stats Dashboard**: Key metrics with glowing accents
-
-### Navigation System
-- **AuraGrid Navigator**: Futuristic map interface
-- **Virtual Store Tours**: Immersive 3D previews
-- **Smart Routing**: AI-optimized path planning
-
-## 🚀 Getting Started
-
-```bash
-# Install dependencies
-npm install
-
-# Start development server
+# Step 4: Start the development server with auto-reloading and an instant preview.
 npm run dev
-
-# Build for production
-npm run build
 ```
 
-## 🔮 Future Enhancements
+**Edit a file directly in GitHub**
 
-- **AR Integration**: Augmented reality store previews
-- **Biometric Authentication**: Fingerprint/iris scan login
-- **Neural Interface**: Direct brain-computer interaction
-- **Quantum Styling**: Molecular-level fashion engineering
-- **Holographic Displays**: True 3D projection interfaces
+- Navigate to the desired file(s).
+- Click the "Edit" button (pencil icon) at the top right of the file view.
+- Make your changes and commit the changes.
 
-## 🎨 Design System
+**Use GitHub Codespaces**
 
-The application uses a comprehensive design system with semantic color tokens:
+- Navigate to the main page of your repository.
+- Click on the "Code" button (green button) near the top right.
+- Select the "Codespaces" tab.
+- Click on "New codespace" to launch a new Codespace environment.
+- Edit files directly within the Codespace and commit and push your changes once you're done.
 
-- **Primary**: Electric cyan (`#00ffff`) - Neural interfaces
-- **Secondary**: Neon magenta (`#ff00ff`) - Accent elements  
-- **Accent**: Electric green (`#00ff00`) - Success states
-- **Neural**: Deep purple (`#8b5cf6`) - Data streams
-- **Background**: Deep space (`#0f0f23`) - Base layer
+## What technologies are used for this project?
 
-## 🌟 Experience Highlights
+This project is built with:
 
-- **Immersive Onboarding**: Neural pattern calibration
-- **Adaptive Interface**: Responds to user behavior
-- **Contextual Recommendations**: Location and mood aware
-- **Social Integration**: Community-driven style insights
-- **Predictive Analytics**: Future trend forecasting
+- Vite
+- TypeScript
+- React
+- shadcn-ui
+- Tailwind CSS
 
----
+## How can I deploy this project?
 
-**Built for the year 2035** • **Powered by Neural Intelligence** • **Designed for Digital Natives**
+Simply open [Lovable](https://lovable.dev/projects/414e3135-7f60-45f6-a66b-efc88a4e5671) and click on Share -> Publish.
 
-*Experience the future of fashion discovery with AuraThread.*
+## Can I connect a custom domain to my Lovable project?
+
+Yes, you can!
+
+To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+
+Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
