@@ -11,6 +11,9 @@ import UpcomingAppointments from "@/components/dashboard/UpcomingAppointments";
 import ActiveTreatments from "@/components/dashboard/ActiveTreatments";
 import BedUtilization from "@/components/dashboard/BedUtilization";
 import StaffOptimization from "@/components/dashboard/StaffOptimization";
+import DoctorAvailabilityAnalytics from "@/components/dashboard/DoctorAvailabilityAnalytics";
+import SupportStaffAnalytics from "@/components/dashboard/SupportStaffAnalytics";
+import PatientAnalytics from "@/components/dashboard/PatientAnalytics";
 import AIChatbot from "@/components/shared/AIChatbot";
 
 const Index = () => {
@@ -109,6 +112,25 @@ const Index = () => {
         return (
           <>
             <QuickStats />
+            <div className="space-y-8">
+              <div>
+                <h2 className="text-2xl font-bold text-foreground mb-6">Doctor Availability Analytics</h2>
+                <p className="text-muted-foreground mb-6">Real-time insights into medical staff distribution across specialties</p>
+                <DoctorAvailabilityAnalytics />
+              </div>
+              
+              <div>
+                <h2 className="text-2xl font-bold text-foreground mb-6">Support Staff Analytics</h2>
+                <p className="text-muted-foreground mb-6">Current status and distribution of nursing and support staff</p>
+                <SupportStaffAnalytics />
+              </div>
+              
+              <div>
+                <h2 className="text-2xl font-bold text-foreground mb-6">Active Patient Analytics</h2>
+                <p className="text-muted-foreground mb-6">In-house and outpatient distribution across departments</p>
+                <PatientAnalytics />
+              </div>
+            </div>
             <PatientOverview />
           </>
         );
