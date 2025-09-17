@@ -7,6 +7,11 @@ import CriticalPatientsList from "@/components/dashboard/CriticalPatientsList";
 import PatientOverview from "@/components/dashboard/PatientOverview";
 import AIProviderAssistant from "@/components/dashboard/AIProviderAssistant";
 import DoctorStatusMatrix from "@/components/dashboard/DoctorStatusMatrix";
+import UpcomingAppointments from "@/components/dashboard/UpcomingAppointments";
+import ActiveTreatments from "@/components/dashboard/ActiveTreatments";
+import BedUtilization from "@/components/dashboard/BedUtilization";
+import StaffOptimization from "@/components/dashboard/StaffOptimization";
+import AIChatbot from "@/components/shared/AIChatbot";
 
 const Index = () => {
   const [currentView, setCurrentView] = useState<'dashboard' | 'criticalPatients' | 'patientAlert' | 'specialists' | 'aiAgent' | 'doctorStatus' | 'appointments' | 'treatments' | 'beds' | 'staff'>('dashboard');
@@ -77,22 +82,28 @@ const Index = () => {
           />
         );
       case 'appointments':
+        return (
+          <UpcomingAppointments 
+            onBack={() => setCurrentView('dashboard')}
+          />
+        );
       case 'treatments':
+        return (
+          <ActiveTreatments 
+            onBack={() => setCurrentView('dashboard')}
+          />
+        );
       case 'beds':
+        return (
+          <BedUtilization 
+            onBack={() => setCurrentView('dashboard')}
+          />
+        );
       case 'staff':
         return (
-          <div className="text-center py-12">
-            <h2 className="text-2xl font-bold text-foreground mb-4">
-              {currentView.charAt(0).toUpperCase() + currentView.slice(1)} Management
-            </h2>
-            <p className="text-muted-foreground mb-6">This section is under development</p>
-            <button 
-              onClick={() => setCurrentView('dashboard')}
-              className="bg-primary text-primary-foreground px-4 py-2 rounded hover:bg-primary/90"
-            >
-              Back to Dashboard
-            </button>
-          </div>
+          <StaffOptimization 
+            onBack={() => setCurrentView('dashboard')}
+          />
         );
       default:
         return (
@@ -111,6 +122,9 @@ const Index = () => {
       <main className="container mx-auto px-6 py-8">
         {renderContent()}
       </main>
+      
+      {/* AI Chatbot - appears on every page */}
+      <AIChatbot />
     </div>
   );
 };
