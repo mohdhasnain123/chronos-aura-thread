@@ -3,6 +3,7 @@ import DashboardHeader from "@/components/dashboard/DashboardHeader";
 import QuickStats from "@/components/dashboard/QuickStats";
 import PatientAlert from "@/components/dashboard/PatientAlert";
 import CardiacSpecialists from "@/components/dashboard/CardiacSpecialists";
+import OrthopedicSpecialists from "@/components/dashboard/OrthopedicSpecialists";
 import CriticalPatientsList from "@/components/dashboard/CriticalPatientsList";
 import PatientOverview from "@/components/dashboard/PatientOverview";
 import AIProviderAssistant from "@/components/dashboard/AIProviderAssistant";
@@ -68,7 +69,7 @@ const Index = () => {
         );
       case 'specialists':
         return (
-          <CardiacSpecialists 
+          <OrthopedicSpecialists 
             onBack={() => setCurrentView('patientAlert')}
           />
         );

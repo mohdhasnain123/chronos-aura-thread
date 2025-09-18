@@ -52,6 +52,44 @@ const PatientAlert = ({ onBack, onViewSpecialists }: PatientAlertProps) => {
 
   const [showVideoCall, setShowVideoCall] = useState(false);
 
+  // Live updating vitals every second
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setVitals(prevVitals => prevVitals.map(vital => {
+        const randomVariation = Math.random() * 0.1 - 0.05; // ±5% variation
+        
+        switch (vital.label) {
+          case "Heart Rate":
+            const baseHR = 118;
+            const newHR = Math.round(baseHR + (Math.random() * 10 - 5));
+            return { ...vital, value: `${newHR} BPM`, trend: newHR > baseHR ? `+${newHR - baseHR}` : `${newHR - baseHR}` };
+          
+          case "Blood Pressure":
+            const baseSys = 145;
+            const baseDia = 88;
+            const newSys = Math.round(baseSys + (Math.random() * 8 - 4));
+            const newDia = Math.round(baseDia + (Math.random() * 6 - 3));
+            return { ...vital, value: `${newSys}/${newDia}`, trend: newSys > baseSys ? `+${newSys - baseSys}` : `${newSys - baseSys}` };
+          
+          case "SpO2":
+            const baseSpO2 = 96;
+            const newSpO2 = Math.max(94, Math.min(98, Math.round(baseSpO2 + (Math.random() * 4 - 2))));
+            return { ...vital, value: `${newSpO2}%`, trend: newSpO2 > baseSpO2 ? `+${newSpO2 - baseSpO2}%` : `${newSpO2 - baseSpO2}%` };
+          
+          case "Pain Level":
+            const basePain = 8;
+            const newPain = Math.max(6, Math.min(10, Math.round(basePain + (Math.random() * 2 - 1))));
+            return { ...vital, value: `${newPain}/10`, trend: newPain > basePain ? `+${newPain - basePain} pts` : `${newPain - basePain} pts` };
+          
+          default:
+            return vital;
+        }
+      }));
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   const symptoms = [
     "Severe knee pain and swelling",
     "Unable to bear weight on affected leg",
