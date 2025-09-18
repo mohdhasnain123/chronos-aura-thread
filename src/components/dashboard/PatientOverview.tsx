@@ -78,7 +78,7 @@ const PatientOverview = () => {
         ...agent,
         count: Math.max(1, agent.count + Math.floor(Math.random() * 4) - 2)
       })));
-    }, 3000);
+    }, 2000);
 
     return () => clearInterval(interval);
   }, []);

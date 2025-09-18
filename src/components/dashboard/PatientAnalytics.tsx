@@ -22,10 +22,10 @@ const PatientAnalytics = () => {
     const interval = setInterval(() => {
       setPatientData(prev => prev.map(dept => ({
         ...dept,
-        inhouse: Math.max(0, dept.inhouse + Math.floor(Math.random() * 4) - 2),
-        opd: Math.max(0, dept.opd + Math.floor(Math.random() * 6) - 3)
+        inhouse: Math.max(1, dept.inhouse + Math.floor(Math.random() * 4) - 2),
+        opd: Math.max(1, dept.opd + Math.floor(Math.random() * 6) - 3)
       })));
-    }, 2500);
+    }, 2000);
 
     return () => clearInterval(interval);
   }, []);

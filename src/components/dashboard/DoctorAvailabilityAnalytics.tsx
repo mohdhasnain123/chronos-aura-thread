@@ -23,11 +23,11 @@ const DoctorAvailabilityAnalytics = () => {
     const interval = setInterval(() => {
       setSpecialtyData(prev => prev.map(spec => ({
         ...spec,
-        available: Math.max(0, spec.available + Math.floor(Math.random() * 3) - 1),
-        busy: Math.max(0, spec.busy + Math.floor(Math.random() * 3) - 1),
-        offline: Math.max(0, spec.offline + Math.floor(Math.random() * 2) - 1)
+        available: Math.max(1, spec.available + Math.floor(Math.random() * 3) - 1),
+        busy: Math.max(1, spec.busy + Math.floor(Math.random() * 3) - 1),
+        offline: Math.max(1, spec.offline + Math.floor(Math.random() * 2) - 1)
       })));
-    }, 4000);
+    }, 2000);
 
     return () => clearInterval(interval);
   }, []);

@@ -23,11 +23,11 @@ const SupportStaffAnalytics = () => {
     const interval = setInterval(() => {
       setStaffData(prev => prev.map(staff => ({
         ...staff,
-        available: Math.max(0, staff.available + Math.floor(Math.random() * 3) - 1),
-        busy: Math.max(0, staff.busy + Math.floor(Math.random() * 3) - 1),
-        offline: Math.max(0, staff.offline + Math.floor(Math.random() * 2) - 1)
+        available: Math.max(1, staff.available + Math.floor(Math.random() * 3) - 1),
+        busy: Math.max(1, staff.busy + Math.floor(Math.random() * 3) - 1),
+        offline: Math.max(1, staff.offline + Math.floor(Math.random() * 2) - 1)
       })));
-    }, 3500);
+    }, 2000);
 
     return () => clearInterval(interval);
   }, []);
