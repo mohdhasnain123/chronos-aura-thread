@@ -12,8 +12,8 @@ const DashboardHeader = () => {
             <Activity className="h-6 w-6" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-foreground">Health Provider Dashboard</h1>
-            <p className="text-muted-foreground">Patient Care & Resource Management</p>
+            <h1 className="text-2xl font-bold text-foreground">Health Command Center</h1>
+            <p className="text-muted-foreground">Quantum-Enhanced Healthcare Intelligence Platform</p>
           </div>
         </div>
         
