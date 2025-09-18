@@ -17,6 +17,11 @@ const overallStaffStatus = [
   { name: "Offline", value: 6, percentage: 9.7, color: "hsl(var(--chart-3))" },
 ];
 
+const handleChartClick = (data: any, category?: string) => {
+  console.log("Chart clicked:", data, category);
+  // Here you can add navigation or modal logic
+};
+
 const chartConfig = {
   available: {
     label: "Available",
@@ -35,7 +40,7 @@ const chartConfig = {
 const SupportStaffAnalytics = () => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-      <Card className="bg-card/50 backdrop-blur-sm border-border/50">
+      <Card className="bg-card/50 backdrop-blur-sm border-border/50 shadow-glow">
         <CardHeader>
           <CardTitle className="text-lg font-semibold text-foreground">
             Support Staff by Category
@@ -44,19 +49,42 @@ const SupportStaffAnalytics = () => {
         <CardContent>
           <ChartContainer config={chartConfig} className="h-64">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={staffData} margin={{ top: 20, right: 30, left: 20, bottom: 60 }}>
+              <BarChart 
+                data={staffData} 
+                margin={{ top: 20, right: 30, left: 20, bottom: 60 }}
+                onClick={(data) => handleChartClick(data, "staff")}
+              >
                 <XAxis 
                   dataKey="category" 
                   angle={-45}
                   textAnchor="end"
                   height={60}
                   fontSize={12}
+                  stroke="hsl(var(--muted-foreground))"
                 />
-                <YAxis fontSize={12} />
+                <YAxis fontSize={12} stroke="hsl(var(--muted-foreground))" />
                 <ChartTooltip content={<ChartTooltipContent />} />
-                <Bar dataKey="available" stackId="a" fill="hsl(var(--chart-1))" />
-                <Bar dataKey="busy" stackId="a" fill="hsl(var(--chart-2))" />
-                <Bar dataKey="offline" stackId="a" fill="hsl(var(--chart-3))" />
+                <Bar 
+                  dataKey="available" 
+                  stackId="a" 
+                  fill="hsl(var(--chart-1))" 
+                  className="chart-interactive"
+                  onClick={(data) => handleChartClick(data, "available")}
+                />
+                <Bar 
+                  dataKey="busy" 
+                  stackId="a" 
+                  fill="hsl(var(--chart-2))" 
+                  className="chart-interactive"
+                  onClick={(data) => handleChartClick(data, "busy")}
+                />
+                <Bar 
+                  dataKey="offline" 
+                  stackId="a" 
+                  fill="hsl(var(--chart-3))" 
+                  className="chart-interactive"
+                  onClick={(data) => handleChartClick(data, "offline")}
+                />
               </BarChart>
             </ResponsiveContainer>
           </ChartContainer>
@@ -77,7 +105,7 @@ const SupportStaffAnalytics = () => {
         </CardContent>
       </Card>
 
-      <Card className="bg-card/50 backdrop-blur-sm border-border/50">
+      <Card className="bg-card/50 backdrop-blur-sm border-border/50 shadow-glow">
         <CardHeader>
           <CardTitle className="text-lg font-semibold text-foreground">
             Staff Availability Overview
@@ -86,7 +114,7 @@ const SupportStaffAnalytics = () => {
         <CardContent>
           <ChartContainer config={chartConfig} className="h-64">
             <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
+              <PieChart onClick={(data) => handleChartClick(data, "staff-overview")}>
                 <Pie
                   data={overallStaffStatus}
                   cx="50%"
@@ -94,9 +122,17 @@ const SupportStaffAnalytics = () => {
                   innerRadius={60}
                   outerRadius={100}
                   dataKey="value"
+                  className="chart-interactive"
+                  onClick={(data) => handleChartClick(data, "pie-slice")}
                 >
                   {overallStaffStatus.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
+                    <Cell 
+                      key={`cell-${index}`} 
+                      fill={entry.color}
+                      className="chart-interactive"
+                      stroke="hsl(var(--background))"
+                      strokeWidth={2}
+                    />
                   ))}
                 </Pie>
                 <ChartTooltip content={<ChartTooltipContent />} />

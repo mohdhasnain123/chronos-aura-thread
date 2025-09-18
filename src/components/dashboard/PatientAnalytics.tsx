@@ -16,6 +16,11 @@ const overallPatientStatus = [
   { name: "OPD", value: 80, percentage: 67.8, color: "hsl(var(--chart-2))" },
 ];
 
+const handleChartClick = (data: any, category?: string) => {
+  console.log("Patient chart clicked:", data, category);
+  // Here you can add navigation or modal logic
+};
+
 const chartConfig = {
   inhouse: {
     label: "In-house",
@@ -30,7 +35,7 @@ const chartConfig = {
 const PatientAnalytics = () => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-      <Card className="bg-card/50 backdrop-blur-sm border-border/50">
+      <Card className="bg-card/50 backdrop-blur-sm border-border/50 shadow-glow">
         <CardHeader>
           <CardTitle className="text-lg font-semibold text-foreground">
             Active Patients by Department
@@ -39,18 +44,33 @@ const PatientAnalytics = () => {
         <CardContent>
           <ChartContainer config={chartConfig} className="h-64">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={patientData} margin={{ top: 20, right: 30, left: 20, bottom: 60 }}>
+              <BarChart 
+                data={patientData} 
+                margin={{ top: 20, right: 30, left: 20, bottom: 60 }}
+                onClick={(data) => handleChartClick(data, "patients")}
+              >
                 <XAxis 
                   dataKey="category" 
                   angle={-45}
                   textAnchor="end"
                   height={60}
                   fontSize={12}
+                  stroke="hsl(var(--muted-foreground))"
                 />
-                <YAxis fontSize={12} />
+                <YAxis fontSize={12} stroke="hsl(var(--muted-foreground))" />
                 <ChartTooltip content={<ChartTooltipContent />} />
-                <Bar dataKey="inhouse" fill="hsl(var(--chart-1))" />
-                <Bar dataKey="opd" fill="hsl(var(--chart-2))" />
+                <Bar 
+                  dataKey="inhouse" 
+                  fill="hsl(var(--chart-1))" 
+                  className="chart-interactive"
+                  onClick={(data) => handleChartClick(data, "inhouse")}
+                />
+                <Bar 
+                  dataKey="opd" 
+                  fill="hsl(var(--chart-2))" 
+                  className="chart-interactive"
+                  onClick={(data) => handleChartClick(data, "opd")}
+                />
               </BarChart>
             </ResponsiveContainer>
           </ChartContainer>
@@ -67,7 +87,7 @@ const PatientAnalytics = () => {
         </CardContent>
       </Card>
 
-      <Card className="bg-card/50 backdrop-blur-sm border-border/50">
+      <Card className="bg-card/50 backdrop-blur-sm border-border/50 shadow-glow">
         <CardHeader>
           <CardTitle className="text-lg font-semibold text-foreground">
             Patient Distribution
@@ -76,7 +96,7 @@ const PatientAnalytics = () => {
         <CardContent>
           <ChartContainer config={chartConfig} className="h-64">
             <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
+              <PieChart onClick={(data) => handleChartClick(data, "patient-distribution")}>
                 <Pie
                   data={overallPatientStatus}
                   cx="50%"
@@ -84,9 +104,17 @@ const PatientAnalytics = () => {
                   innerRadius={60}
                   outerRadius={100}
                   dataKey="value"
+                  className="chart-interactive"
+                  onClick={(data) => handleChartClick(data, "pie-slice")}
                 >
                   {overallPatientStatus.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
+                    <Cell 
+                      key={`cell-${index}`} 
+                      fill={entry.color}
+                      className="chart-interactive"
+                      stroke="hsl(var(--background))"
+                      strokeWidth={2}
+                    />
                   ))}
                 </Pie>
                 <ChartTooltip content={<ChartTooltipContent />} />

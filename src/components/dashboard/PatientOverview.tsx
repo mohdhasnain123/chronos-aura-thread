@@ -37,10 +37,10 @@ const PatientOverview = () => {
   ];
 
   const aiAgentMatrix = [
-    { type: "Personal AI", count: 156, function: "Patient Monitoring", status: "active" },
-    { type: "Payer AI", count: 4, function: "Claims Processing", status: "active" },
-    { type: "Provider AI", count: 1, function: "Resource Optimization", status: "active" },
-    { type: "Emergency AI", count: 8, function: "Critical Alert System", status: "standby" }
+    { type: "Speciality AI", count: 156, function: "Patient Monitoring", status: "active" },
+    { type: "Finance AI", count: 4, function: "Claims Processing", status: "active" },
+    { type: "Scheduler AI", count: 1, function: "Resource Optimization", status: "active" },
+    { type: "Coordinator AI", count: 8, function: "Critical Alert System", status: "standby" }
   ];
 
   return (

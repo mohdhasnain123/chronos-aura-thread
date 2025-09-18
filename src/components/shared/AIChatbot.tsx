@@ -28,7 +28,7 @@ const AIChatbot = () => {
     'patient': 'I can help you find patient information, medical records, or schedule appointments. What specific patient details do you need?',
     'bed': 'Current bed utilization is at 87%. ICU has 2 beds available, General Ward has 15 beds available. Would you like detailed department breakdown?',
     'staff': 'Staff optimization is at 94%. 87 staff members are currently active with 12 on-call. Emergency department is at optimal capacity.',
-    'critical': 'There are currently 8 critical alerts requiring immediate attention. 3 are cardiac emergencies, 2 are respiratory distress cases.',
+    'critical': 'There are currently 1 critical alerts requiring immediate attention.',
     'appointment': 'Next appointment is Dr. Smith at 9:00 AM. There are 47 total appointments scheduled today. Would you like to view the full schedule?',
     'medication': 'I can assist with medication interactions, dosage calculations, or prescription management. What medication information do you need?',
     'lab': 'Latest lab results show 156 pending tests, 89 completed today. Critical values flagged for 3 patients requiring immediate review.',

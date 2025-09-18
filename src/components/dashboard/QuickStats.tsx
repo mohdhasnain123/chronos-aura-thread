@@ -23,7 +23,7 @@ const QuickStats = () => {
     },
     {
       title: "Critical Alerts",
-      value: "8",
+      value: "1",
       change: "AI-detected emergencies",
       icon: AlertTriangle,
       color: "bg-destructive",

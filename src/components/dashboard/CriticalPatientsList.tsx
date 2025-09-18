@@ -14,44 +14,44 @@ const CriticalPatientsList = ({ onBack, onSelectPatient }: CriticalPatientsListP
       id: "PA-2024-001",
       name: "Bob Anderson",
       age: 58,
-      condition: "Imminent Cardiac Arrest Risk",
+      condition: "Severe Knee Injury with Compartment Syndrome Risk",
       severity: "CRITICAL",
       timeDetected: "2 minutes ago",
       vitals: {
-        heartRate: "165 BPM",
-        bloodPressure: "180/120",
-        oxygen: "89%"
+        heartRate: "118 BPM",
+        bloodPressure: "145/88",
+        oxygen: "96%"
       },
-      riskScore: 95
+      riskScore: 89
     },
-    {
-      id: "PA-2024-002", 
-      name: "Sarah Williams",
-      age: 45,
-      condition: "Severe Respiratory Distress",
-      severity: "CRITICAL",
-      timeDetected: "5 minutes ago",
-      vitals: {
-        heartRate: "134 BPM",
-        bloodPressure: "95/60", 
-        oxygen: "78%"
-      },
-      riskScore: 92
-    },
-    {
-      id: "PA-2024-003",
-      name: "Michael Chen",
-      age: 67,
-      condition: "Stroke Alert",
-      severity: "CRITICAL", 
-      timeDetected: "8 minutes ago",
-      vitals: {
-        heartRate: "98 BPM",
-        bloodPressure: "220/110",
-        oxygen: "94%"
-      },
-      riskScore: 88
-    }
+    // {
+    //   id: "PA-2024-002", 
+    //   name: "Sarah Williams",
+    //   age: 45,
+    //   condition: "Severe Respiratory Distress",
+    //   severity: "CRITICAL",
+    //   timeDetected: "5 minutes ago",
+    //   vitals: {
+    //     heartRate: "134 BPM",
+    //     bloodPressure: "95/60", 
+    //     oxygen: "78%"
+    //   },
+    //   riskScore: 92
+    // },
+    // {
+    //   id: "PA-2024-003",
+    //   name: "Michael Chen",
+    //   age: 67,
+    //   condition: "Stroke Alert",
+    //   severity: "CRITICAL", 
+    //   timeDetected: "8 minutes ago",
+    //   vitals: {
+    //     heartRate: "98 BPM",
+    //     bloodPressure: "220/110",
+    //     oxygen: "94%"
+    //   },
+    //   riskScore: 88
+    // }
   ];
 
   const getSeverityColor = (severity: string) => {
