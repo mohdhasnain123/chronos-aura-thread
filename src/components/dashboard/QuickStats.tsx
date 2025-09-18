@@ -1,8 +1,9 @@
 import { Calendar, FileText, AlertTriangle, Bed, Users, Activity, Brain, Stethoscope, TrendingUp } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { useState, useEffect } from "react";
 
 const QuickStats = () => {
-  const stats = [
+  const [stats, setStats] = useState([
     {
       title: "Upcoming Appointments",
       value: "47",
@@ -57,7 +58,39 @@ const QuickStats = () => {
       isClickable: true,
       action: "aiAgent"
     },
-  ];
+  ]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setStats(prevStats => prevStats.map(stat => {
+        const baseValues = {
+          "Upcoming Appointments": { base: 47, range: 10 },
+          "Active Treatments": { base: 156, range: 15 },
+          "Critical Alerts": { base: 1, range: 3 },
+          "Bed Utilization": { base: 87, range: 8 },
+          "Staff Optimization": { base: 94, range: 6 }
+        };
+        
+        const config = baseValues[stat.title as keyof typeof baseValues];
+        if (!config) return stat;
+        
+        const variation = Math.floor(Math.random() * config.range) - Math.floor(config.range / 2);
+        const newValue = Math.max(0, config.base + variation);
+        
+        let displayValue = newValue.toString();
+        if (stat.title.includes("Utilization") || stat.title.includes("Optimization")) {
+          displayValue = Math.min(100, newValue) + "%";
+        }
+        
+        return {
+          ...stat,
+          value: displayValue
+        };
+      }));
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const handleCardClick = (stat: any) => {
     if (stat.isClickable) {

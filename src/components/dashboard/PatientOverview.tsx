@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -7,41 +7,81 @@ import { TrendingUp, Users, Activity, Heart, Brain, DollarSign, Clock, Wifi, Shi
 
 const PatientOverview = () => {
   // Comprehensive provider analytics
-  const utilizationMetrics = {
+  const [utilizationMetrics, setUtilizationMetrics] = useState({
     patientVolume: 1247,
     bedOccupancy: 87,
     avgStayDays: 4.2,
     physicianProductivity: 94,
     resourceUtilization: 89
-  };
+  });
 
-  const payerMixData = [
+  const [payerMixData, setPayerMixData] = useState([
     { type: "Medicare", percentage: 35, revenue: "$2.1M", color: "bg-gradient-primary" },
     { type: "Private Insurance", percentage: 45, revenue: "$3.2M", color: "bg-gradient-secondary" },
     { type: "Medicaid", percentage: 15, revenue: "$890K", color: "bg-gradient-accent" },
     { type: "Self-Pay", percentage: 5, revenue: "$320K", color: "bg-warning" }
-  ];
+  ]);
 
-  const recoveryRates = [
+  const [recoveryRates, setRecoveryRates] = useState([
     { specialty: "Cardiology", rate: 94, patients: 156, trend: "up" },
     { specialty: "Orthopedics", rate: 89, patients: 234, trend: "up" },
     { specialty: "Neurology", rate: 91, patients: 87, trend: "stable" },
     { specialty: "Oncology", rate: 86, patients: 145, trend: "down" }
-  ];
+  ]);
 
-  const iotDevices = [
+  const [iotDevices, setIotDevices] = useState([
     { name: "Smart Monitors", active: 156, status: "online", lastSync: "2 min ago" },
     { name: "Wearable Sensors", active: 234, status: "online", lastSync: "1 min ago" },
     { name: "Ambulance Fleet", active: 12, status: "online", lastSync: "30 sec ago" },
     { name: "AI Diagnostics", active: 8, status: "processing", lastSync: "Live" }
-  ];
+  ]);
 
-  const aiAgentMatrix = [
+  const [aiAgentMatrix, setAiAgentMatrix] = useState([
     { type: "Speciality AI", count: 156, function: "Patient Monitoring", status: "active" },
     { type: "Finance AI", count: 4, function: "Claims Processing", status: "active" },
     { type: "Scheduler AI", count: 1, function: "Resource Optimization", status: "active" },
     { type: "Coordinator AI", count: 8, function: "Critical Alert System", status: "standby" }
-  ];
+  ]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      // Update utilization metrics
+      setUtilizationMetrics(prev => ({
+        patientVolume: Math.max(1000, prev.patientVolume + Math.floor(Math.random() * 20) - 10),
+        bedOccupancy: Math.max(70, Math.min(95, prev.bedOccupancy + Math.floor(Math.random() * 6) - 3)),
+        avgStayDays: Math.max(3, Math.min(6, +(prev.avgStayDays + (Math.random() * 0.4 - 0.2)).toFixed(1))),
+        physicianProductivity: Math.max(85, Math.min(98, prev.physicianProductivity + Math.floor(Math.random() * 4) - 2)),
+        resourceUtilization: Math.max(80, Math.min(95, prev.resourceUtilization + Math.floor(Math.random() * 6) - 3))
+      }));
+
+      // Update payer mix data
+      setPayerMixData(prev => prev.map(payer => ({
+        ...payer,
+        percentage: Math.max(1, Math.min(50, payer.percentage + Math.floor(Math.random() * 4) - 2))
+      })));
+
+      // Update recovery rates
+      setRecoveryRates(prev => prev.map(rate => ({
+        ...rate,
+        rate: Math.max(80, Math.min(98, rate.rate + Math.floor(Math.random() * 4) - 2)),
+        patients: Math.max(50, rate.patients + Math.floor(Math.random() * 10) - 5)
+      })));
+
+      // Update IoT devices
+      setIotDevices(prev => prev.map(device => ({
+        ...device,
+        active: Math.max(5, device.active + Math.floor(Math.random() * 6) - 3)
+      })));
+
+      // Update AI agent matrix
+      setAiAgentMatrix(prev => prev.map(agent => ({
+        ...agent,
+        count: Math.max(1, agent.count + Math.floor(Math.random() * 4) - 2)
+      })));
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="space-y-6">

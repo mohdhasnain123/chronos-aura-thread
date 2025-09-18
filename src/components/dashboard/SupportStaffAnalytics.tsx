@@ -1,21 +1,66 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
+import { useState, useEffect } from "react";
 
-const staffData = [
-  { category: "ICU Nurses", available: 8, busy: 4, offline: 2 },
-  { category: "General Nurses", available: 12, busy: 6, offline: 3 },
-  { category: "Technicians", available: 6, busy: 2, offline: 1 },
-  { category: "Pharmacists", available: 3, busy: 1, offline: 0 },
-  { category: "Lab Staff", available: 5, busy: 3, offline: 1 },
-  { category: "Admin Staff", available: 4, busy: 2, offline: 1 },
-];
+const SupportStaffAnalytics = () => {
+  const [staffData, setStaffData] = useState([
+    { category: "ICU Nurses", available: 8, busy: 4, offline: 2 },
+    { category: "General Nurses", available: 12, busy: 6, offline: 3 },
+    { category: "Technicians", available: 6, busy: 2, offline: 1 },
+    { category: "Pharmacists", available: 3, busy: 1, offline: 0 },
+    { category: "Lab Staff", available: 5, busy: 3, offline: 1 },
+    { category: "Admin Staff", available: 4, busy: 2, offline: 1 },
+  ]);
 
-const overallStaffStatus = [
-  { name: "Available", value: 38, percentage: 61.3, color: "hsl(var(--chart-1))" },
-  { name: "Busy", value: 18, percentage: 29.0, color: "hsl(var(--chart-2))" },
-  { name: "Offline", value: 6, percentage: 9.7, color: "hsl(var(--chart-3))" },
-];
+  const [overallStaffStatus, setOverallStaffStatus] = useState([
+    { name: "Available", value: 38, percentage: 61.3, color: "hsl(var(--chart-1))" },
+    { name: "Busy", value: 18, percentage: 29.0, color: "hsl(var(--chart-2))" },
+    { name: "Offline", value: 6, percentage: 9.7, color: "hsl(var(--chart-3))" },
+  ]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setStaffData(prev => prev.map(staff => ({
+        ...staff,
+        available: Math.max(0, staff.available + Math.floor(Math.random() * 3) - 1),
+        busy: Math.max(0, staff.busy + Math.floor(Math.random() * 3) - 1),
+        offline: Math.max(0, staff.offline + Math.floor(Math.random() * 2) - 1)
+      })));
+    }, 3500);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const totalAvailable = staffData.reduce((sum, staff) => sum + staff.available, 0);
+    const totalBusy = staffData.reduce((sum, staff) => sum + staff.busy, 0);
+    const totalOffline = staffData.reduce((sum, staff) => sum + staff.offline, 0);
+    const total = totalAvailable + totalBusy + totalOffline;
+
+    if (total > 0) {
+      setOverallStaffStatus([
+        { 
+          name: "Available", 
+          value: totalAvailable, 
+          percentage: +((totalAvailable / total) * 100).toFixed(1), 
+          color: "hsl(var(--chart-1))" 
+        },
+        { 
+          name: "Busy", 
+          value: totalBusy, 
+          percentage: +((totalBusy / total) * 100).toFixed(1), 
+          color: "hsl(var(--chart-2))" 
+        },
+        { 
+          name: "Offline", 
+          value: totalOffline, 
+          percentage: +((totalOffline / total) * 100).toFixed(1), 
+          color: "hsl(var(--chart-3))" 
+        },
+      ]);
+    }
+  }, [staffData]);
 
 const handleChartClick = (data: any, category?: string) => {
   console.log("Chart clicked:", data, category);
@@ -37,7 +82,6 @@ const chartConfig = {
   }
 };
 
-const SupportStaffAnalytics = () => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
       <Card className="bg-card/50 backdrop-blur-sm border-border/50 shadow-glow">
