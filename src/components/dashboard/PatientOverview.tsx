@@ -16,10 +16,10 @@ const PatientOverview = () => {
   });
 
   const [payerMixData, setPayerMixData] = useState([
-    { type: "Medicare", percentage: 35, revenue: "$2.1M", color: "bg-gradient-primary" },
-    { type: "Private Insurance", percentage: 45, revenue: "$3.2M", color: "bg-gradient-secondary" },
-    { type: "Medicaid", percentage: 15, revenue: "$890K", color: "bg-gradient-accent" },
-    { type: "Self-Pay", percentage: 5, revenue: "$320K", color: "bg-warning" }
+    { type: "Medicare", percentage: 75, revenue: "$2.1M", members: 105, color: "bg-gradient-primary" },
+    { type: "Private Insurance", percentage: 86, revenue: "$3.2M", members: 85, color: "bg-gradient-secondary" },
+    { type: "Medicaid", percentage: 83, revenue: "$890K", members: 55, color: "bg-gradient-accent" },
+    { type: "Self-Pay", percentage: 64, revenue: "$320K", members: 19, color: "bg-warning" }
   ]);
 
   const [recoveryRates, setRecoveryRates] = useState([
@@ -30,10 +30,10 @@ const PatientOverview = () => {
   ]);
 
   const [iotDevices, setIotDevices] = useState([
-    { name: "Smart Monitors", active: 156, status: "online", lastSync: "2 min ago" },
-    { name: "Wearable Sensors", active: 234, status: "online", lastSync: "1 min ago" },
-    { name: "Ambulance Fleet", active: 12, status: "online", lastSync: "30 sec ago" },
-    { name: "AI Diagnostics", active: 8, status: "processing", lastSync: "Live" }
+    { name: "Smart Monitors", total: 156, percentage: 90, status: "online", lastSync: "2 min ago" },
+    { name: "Wearable Sensors", total: 234, percentage: 85, status: "online", lastSync: "1 min ago" },
+    { name: "Ambulance Fleet", total: 12, percentage: 93,status: "online", lastSync: "30 sec ago" },
+    { name: "AI Diagnostics", total: 8, percentage: 86, status: "processing", lastSync: "Live" }
   ]);
 
   const [aiAgentMatrix, setAiAgentMatrix] = useState([
@@ -55,10 +55,23 @@ const PatientOverview = () => {
       }));
 
       // Update payer mix data
-      setPayerMixData(prev => prev.map(payer => ({
-        ...payer,
-        percentage: Math.max(1, Math.min(50, payer.percentage + Math.floor(Math.random() * 4) - 2))
-      })));
+      setPayerMixData(prev => prev.map(payer => {
+        const newPercentage = Math.max(80, Math.min(90, payer.percentage + Math.floor(Math.random() * 4) - 2));
+
+        // Extract numeric value from revenue string (e.g., "$2.1M" → 2.1)
+        const revenueValue = parseFloat(payer.revenue.replace(/[^0-9.]/g, ""));
+        const revenueUnit = payer.revenue.includes("M") ? "M" : payer.revenue.includes("K") ? "K" : "";
+
+        // Increase revenue proportionally to percentage change
+        const updatedRevenueValue = revenueValue * (newPercentage / payer.percentage);
+
+        return {
+          ...payer,
+          percentage: newPercentage,
+          revenue: `$${updatedRevenueValue.toFixed(2)}${revenueUnit}`
+        };
+      }));
+
 
       // Update recovery rates
       setRecoveryRates(prev => prev.map(rate => ({
@@ -70,7 +83,8 @@ const PatientOverview = () => {
       // Update IoT devices
       setIotDevices(prev => prev.map(device => ({
         ...device,
-        active: Math.max(5, device.active + Math.floor(Math.random() * 6) - 3)
+        total: Math.max(5, device.total + Math.floor(Math.random() * 6) - 3),
+        percentage: Math.max(80, Math.min(100, device.percentage + Math.floor(Math.random() * 4) - 2))
       })));
 
       // Update AI agent matrix
@@ -78,7 +92,7 @@ const PatientOverview = () => {
         ...agent,
         count: Math.max(1, agent.count + Math.floor(Math.random() * 4) - 2)
       })));
-    }, 2000);
+    }, 5000);
 
     return () => clearInterval(interval);
   }, []);
@@ -140,7 +154,8 @@ const PatientOverview = () => {
                   <div className={`w-3 h-3 rounded-full ${payer.color}`}></div>
                   <div>
                     <div className="font-medium text-foreground">{payer.type}</div>
-                    <div className="text-sm text-muted-foreground">{payer.revenue}</div>
+                    <div className="text-sm text-muted-foreground">Revenue - {payer.revenue}</div>
+                    <div className="text-sm text-muted-foreground">Members - {payer.members}</div>
                   </div>
                 </div>
                 <div className="text-right">
@@ -198,14 +213,12 @@ const PatientOverview = () => {
                   <div className={`w-3 h-3 rounded-full ${device.status === 'online' ? 'bg-success' : device.status === 'processing' ? 'bg-warning animate-pulse' : 'bg-muted'}`}></div>
                   <div>
                     <div className="font-medium text-foreground">{device.name}</div>
-                    <div className="text-sm text-muted-foreground">{device.active} active</div>
+                    <div className="text-sm text-muted-foreground">{device.total} total</div>
                   </div>
                 </div>
                 <div className="text-right">
-                  <Badge className={`${device.status === 'online' ? 'bg-success' : device.status === 'processing' ? 'bg-warning' : 'bg-muted'} text-white text-xs`}>
-                    {device.status}
-                  </Badge>
-                  <div className="text-xs text-muted-foreground mt-1">{device.lastSync}</div>
+                  <div className="font-semibold text-foreground">{device.percentage}%</div>
+                  <Progress value={device.percentage} className="w-16 h-2" />
                 </div>
               </div>
             ))}

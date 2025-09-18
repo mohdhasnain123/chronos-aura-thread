@@ -66,7 +66,7 @@ const QuickStats = () => {
         const baseValues = {
           "Upcoming Appointments": { base: 47, range: 10 },
           "Active Treatments": { base: 156, range: 15 },
-          "Critical Alerts": { base: 1, range: 3 },
+          "Critical Alerts": { base: 1, range: 1 },
           "Bed Utilization": { base: 87, range: 8 },
           "Staff Optimization": { base: 94, range: 6 }
         };
