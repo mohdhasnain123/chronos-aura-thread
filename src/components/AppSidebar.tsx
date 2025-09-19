@@ -31,10 +31,10 @@ export function AppSidebar() {
     <Sidebar className={`border-r border-gray-800 bg-black ${state === "collapsed" ? "w-14" : "w-60"}`} collapsible="offcanvas">
       <SidebarContent className="bg-black">
         <div className="flex h-16 items-center px-4 border-b border-gray-800">
-          <h2 className="text-xl font-bold text-white">MediCare Dashboard</h2>
+          <h2 className="text-xl font-bold text-white">Analytics</h2>
         </div>
         <SidebarGroup className="px-4 py-4">
-          <SidebarGroupLabel className="text-gray-400 mb-2">Analytics</SidebarGroupLabel>
+          {/* <SidebarGroupLabel className="text-gray-400 mb-2">Analytics</SidebarGroupLabel> */}
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (

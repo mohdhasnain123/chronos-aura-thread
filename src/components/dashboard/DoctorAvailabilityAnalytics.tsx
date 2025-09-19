@@ -165,7 +165,7 @@ const chartConfig = {
         </CardHeader>
         <CardContent>
           <ChartContainer config={chartConfig} className="h-64">
-            <ResponsiveContainer width="100%" height="100%">
+            <ResponsiveContainer width="70%" height="70%">
               <PieChart>
                 <Pie
                   data={overallStatusData}
@@ -183,7 +183,7 @@ const chartConfig = {
               </PieChart>
             </ResponsiveContainer>
           </ChartContainer>
-          <div className="space-y-3 mt-4">
+          <div className="space-y-1 mt-2">
             {overallStatusData.map((item) => (
               <div key={item.name} className="flex items-center justify-between p-3 bg-muted/30 rounded-lg">
                 <div className="flex items-center gap-3">

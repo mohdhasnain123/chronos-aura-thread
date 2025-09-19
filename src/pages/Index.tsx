@@ -131,6 +131,8 @@ const Index = () => {
             {/* </div> */}
              <div className="mt-8">
                 <DoctorAvailabilityAnalytics />
+              </div>
+              <div className="mt-8">
                 <SupportStaffAnalytics />
               </div>
             <div className="mt-8">
