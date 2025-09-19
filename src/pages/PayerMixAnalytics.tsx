@@ -1,15 +1,32 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { TrendingUp, DollarSign, Users, FileText, CreditCard, Building2 } from "lucide-react";
+import { TrendingUp, DollarSign, Users, FileText, CreditCard, Building2, ArrowLeft } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const PayerMixAnalytics = () => {
-  const payerData = [
+  const navigate = useNavigate();
+  const [payerData, setPayerData] = useState([
     { name: "Medicare", percentage: 35, amount: "$2.1M", color: "bg-primary", trend: "+5.2%" },
     { name: "Private Insurance", percentage: 40, amount: "$2.8M", color: "bg-secondary", trend: "+8.1%" },
     { name: "Medicaid", percentage: 15, amount: "$890K", color: "bg-accent", trend: "-2.3%" },
     { name: "Self-Pay", percentage: 10, amount: "$650K", color: "bg-warning", trend: "+12.5%" }
-  ];
+  ]);
+
+  // Live data updates
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setPayerData(prev => prev.map(payer => ({
+        ...payer,
+        percentage: Math.max(5, Math.min(50, payer.percentage + (Math.random() - 0.5) * 2)),
+        amount: `$${(parseFloat(payer.amount.replace(/[$MK]/g, '')) + (Math.random() - 0.5) * 100).toFixed(0)}${payer.amount.includes('M') ? 'M' : 'K'}`,
+        trend: `${Math.random() > 0.5 ? '+' : '-'}${(Math.random() * 10 + 1).toFixed(1)}%`
+      })));
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const reimbursementTrends = [
     { quarter: "Q4 2024", medicare: 92.5, private: 96.8, medicaid: 78.2, selfPay: 45.3 },
@@ -26,6 +43,15 @@ const PayerMixAnalytics = () => {
 
   return (
     <div className="space-y-6 p-6">
+      <div className="flex items-center justify-between">
+        <button 
+          onClick={() => navigate('/')}
+          className="flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-colors mb-4"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          <span>Back to Dashboard</span>
+        </button>
+      </div>
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-foreground">Payer Mix Analytics</h1>

@@ -37,12 +37,12 @@ export function AppSidebar() {
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <NavLink 
+                     <NavLink 
                       to={item.url} 
                       className={({ isActive }) => 
                         isActive 
-                          ? "bg-primary/10 text-primary font-medium border-r-2 border-primary" 
-                          : "hover:bg-muted/50 text-muted-foreground hover:text-foreground"
+                          ? "bg-gradient-primary text-white font-medium border-r-2 border-white shadow-glow" 
+                          : "hover:bg-gradient-card/50 text-muted-foreground hover:text-foreground transition-all duration-300"
                       }
                     >
                       <item.icon className="h-4 w-4" />

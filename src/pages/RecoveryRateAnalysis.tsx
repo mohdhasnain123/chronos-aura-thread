@@ -1,15 +1,33 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { TrendingUp, Activity, Clock, Target, Users, Heart } from "lucide-react";
+import { TrendingUp, Activity, Clock, Target, Users, Heart, ArrowLeft } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const RecoveryRateAnalysis = () => {
-  const recoveryMetrics = [
+  const navigate = useNavigate();
+  const [recoveryMetrics, setRecoveryMetrics] = useState([
     { category: "Cardiac Surgery", rate: 94.2, trend: "+2.1%", patients: 342, avgDays: 8.5 },
     { category: "Orthopedic Surgery", rate: 96.8, trend: "+3.2%", patients: 289, avgDays: 6.2 },
     { category: "Emergency Medicine", rate: 91.5, trend: "+1.8%", patients: 578, avgDays: 3.1 },
     { category: "ICU Recovery", rate: 87.3, trend: "+4.5%", patients: 156, avgDays: 12.8 }
-  ];
+  ]);
+
+  // Live data updates
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRecoveryMetrics(prev => prev.map(metric => ({
+        ...metric,
+        rate: Math.max(80, Math.min(98, metric.rate + (Math.random() - 0.5) * 1)),
+        patients: metric.patients + Math.floor(Math.random() * 5) - 2,
+        avgDays: Math.max(2, metric.avgDays + (Math.random() - 0.5) * 0.5),
+        trend: `${Math.random() > 0.5 ? '+' : '-'}${(Math.random() * 5 + 0.5).toFixed(1)}%`
+      })));
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const outcomeData = [
     { outcome: "Full Recovery", percentage: 78.5, color: "bg-success", count: 1247 },
@@ -35,6 +53,15 @@ const RecoveryRateAnalysis = () => {
 
   return (
     <div className="space-y-6 p-6">
+      <div className="flex items-center justify-between">
+        <button 
+          onClick={() => navigate('/')}
+          className="flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-colors mb-4"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          <span>Back to Dashboard</span>
+        </button>
+      </div>
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-foreground">Recovery Rate Analysis</h1>

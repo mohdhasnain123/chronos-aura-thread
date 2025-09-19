@@ -2,8 +2,17 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 import { useState, useEffect } from "react";
+import { Activity } from "lucide-react";
 
 const DoctorAvailabilityAnalytics = () => {
+  const [recentActivities, setRecentActivities] = useState([
+    { doctor: "Dr. Sarah Johnson", action: "Completed cardiac surgery", time: "2 min ago", specialty: "Cardiology", type: "surgery" },
+    { doctor: "Dr. Michael Chen", action: "Diagnosed acute appendicitis", time: "5 min ago", specialty: "Emergency", type: "diagnosis" },
+    { doctor: "Dr. Emily Rodriguez", action: "Patient consultation - Room 205", time: "8 min ago", specialty: "Orthopedics", type: "consultation" },
+    { doctor: "Dr. James Wilson", action: "Updated treatment protocol", time: "12 min ago", specialty: "Internal Medicine", type: "treatment" },
+    { doctor: "Dr. Lisa Thompson", action: "Emergency response - ICU", time: "15 min ago", specialty: "Critical Care", type: "emergency" }
+  ]);
+
   const [specialtyData, setSpecialtyData] = useState([
     { specialty: "Cardiology", available: 4, busy: 1, offline: 0 },
     { specialty: "Neurology", available: 2, busy: 2, offline: 1 },
@@ -30,7 +39,32 @@ const DoctorAvailabilityAnalytics = () => {
       })));
     }, 8000);
 
-    return () => clearInterval(interval);
+    // Update recent activities
+    const activityInterval = setInterval(() => {
+      const activities = [
+        { doctor: "Dr. Sarah Johnson", action: "Completed cardiac surgery", specialty: "Cardiology", type: "surgery" },
+        { doctor: "Dr. Michael Chen", action: "Diagnosed acute appendicitis", specialty: "Emergency", type: "diagnosis" },
+        { doctor: "Dr. Emily Rodriguez", action: "Patient consultation", specialty: "Orthopedics", type: "consultation" },
+        { doctor: "Dr. James Wilson", action: "Updated treatment protocol", specialty: "Internal Medicine", type: "treatment" },
+        { doctor: "Dr. Lisa Thompson", action: "Emergency response", specialty: "Critical Care", type: "emergency" },
+        { doctor: "Dr. Robert Brown", action: "Surgery prep completed", specialty: "Orthopedics", type: "surgery" },
+        { doctor: "Dr. Amanda Davis", action: "Patient discharge approved", specialty: "Internal Medicine", type: "discharge" }
+      ];
+
+      setRecentActivities(prev => {
+        const newActivity = activities[Math.floor(Math.random() * activities.length)];
+        const timeOptions = ["1 min ago", "2 min ago", "3 min ago", "just now"];
+        return [
+          { ...newActivity, time: timeOptions[Math.floor(Math.random() * timeOptions.length)] },
+          ...prev.slice(0, 4)
+        ];
+      });
+    }, 4000);
+
+    return () => {
+      clearInterval(interval);
+      clearInterval(activityInterval);
+    };
   }, []);
 
   useEffect(() => {
@@ -79,7 +113,8 @@ const chartConfig = {
 };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+    <div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
       <Card className="bg-card/50 backdrop-blur-sm border-border/50">
         <CardHeader>
           <CardTitle className="text-lg font-semibold text-foreground">
@@ -167,6 +202,42 @@ const chartConfig = {
           </div>
         </CardContent>
       </Card>
+      </div>
+      
+      {/* Recent Activities */}
+    <div className="mt-8">
+      <Card className="bg-gradient-card border-border shadow-glow">
+        <CardHeader>
+          <CardTitle className="flex items-center space-x-2">
+            <Activity className="h-5 w-5 text-primary" />
+            <span>Recent Doctor Activities</span>
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            {recentActivities.map((activity, index) => (
+              <div key={index} className="flex items-center justify-between p-4 border rounded-lg bg-background/50">
+                <div className="flex items-center space-x-4">
+                  <div className={`w-3 h-3 rounded-full ${
+                    activity.type === 'surgery' ? "bg-destructive animate-pulse" :
+                    activity.type === 'consultation' ? "bg-primary" : 
+                    activity.type === 'diagnosis' ? "bg-success" : "bg-warning"
+                  }`}></div>
+                  <div>
+                    <h4 className="font-semibold text-foreground">{activity.doctor}</h4>
+                    <p className="text-sm text-muted-foreground">{activity.action}</p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="text-sm font-medium text-foreground">{activity.time}</div>
+                  <div className="text-xs text-muted-foreground">{activity.specialty}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+      </div>
     </div>
   );
 };

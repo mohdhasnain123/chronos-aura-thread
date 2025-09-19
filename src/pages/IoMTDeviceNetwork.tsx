@@ -1,10 +1,12 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { Network, Wifi, Battery, Activity, Shield, Zap, Smartphone, Watch } from "lucide-react";
+import { Network, Wifi, Battery, Activity, Shield, Zap, Smartphone, Watch, ArrowLeft } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const IoMTDeviceNetwork = () => {
+  const navigate = useNavigate();
   const [networkData, setNetworkData] = useState({
     totalDevices: 2847,
     activeDevices: 2689,
@@ -53,6 +55,15 @@ const IoMTDeviceNetwork = () => {
 
   return (
     <div className="space-y-6 p-6">
+      <div className="flex items-center justify-between">
+        <button 
+          onClick={() => navigate('/')}
+          className="flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-colors mb-4"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          <span>Back to Dashboard</span>
+        </button>
+      </div>
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-foreground">IoMT Device Network</h1>

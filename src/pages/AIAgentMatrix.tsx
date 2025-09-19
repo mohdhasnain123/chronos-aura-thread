@@ -1,10 +1,12 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { Brain, Bot, Zap, Target, Users, MessageSquare, TrendingUp, Activity } from "lucide-react";
+import { Brain, Bot, Zap, Target, Users, MessageSquare, TrendingUp, Activity, ArrowLeft } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AIAgentMatrix = () => {
+  const navigate = useNavigate();
   const [agentStats, setAgentStats] = useState({
     totalAgents: 47,
     activeAgents: 43,
@@ -112,6 +114,15 @@ const AIAgentMatrix = () => {
 
   return (
     <div className="space-y-6 p-6">
+      <div className="flex items-center justify-between">
+        <button 
+          onClick={() => navigate('/')}
+          className="flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-colors mb-4"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          <span>Back to Dashboard</span>
+        </button>
+      </div>
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-foreground">AI Agent Matrix</h1>
