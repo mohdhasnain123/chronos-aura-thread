@@ -128,7 +128,7 @@ const AIAgentMatrix = () => {
           <h1 className="text-3xl font-bold text-foreground">AI Agent Matrix</h1>
           <p className="text-muted-foreground">Comprehensive AI agent performance and management dashboard</p>
         </div>
-        <Badge className="bg-primary text-white">
+        <Badge className="bg-primary text-black">
           {agentStats.activeAgents}/{agentStats.totalAgents} Active
         </Badge>
       </div>
@@ -144,7 +144,7 @@ const AIAgentMatrix = () => {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-foreground">{agentStats.totalAgents}</div>
-            <Badge className="bg-primary text-white mt-2">+4 this month</Badge>
+            <Badge className="bg-primary text-black mt-2">+4 this month</Badge>
           </CardContent>
         </Card>
 
@@ -221,8 +221,8 @@ const AIAgentMatrix = () => {
                     <div className="text-xs text-muted-foreground">Interactions</div>
                   </div>
                   <Badge className={
-                    agent.status === "Active" ? "bg-success text-white" :
-                    agent.status === "Training" ? "bg-warning text-white" :
+                    agent.status === "Active" ? "bg-success text-black" :
+                    agent.status === "Training" ? "bg-warning text-black" :
                     "bg-muted text-foreground"
                   }>
                     {agent.status}
@@ -249,9 +249,9 @@ const AIAgentMatrix = () => {
                 <div className="flex items-center justify-between mb-2">
                   <h4 className="font-semibold text-foreground">{metric.metric}</h4>
                   <Badge className={
-                    metric.status === "Excellent" ? "bg-success text-white" :
-                    metric.status === "Good" ? "bg-primary text-white" :
-                    "bg-warning text-white"
+                    metric.status === "Excellent" ? "bg-success text-black" :
+                    metric.status === "Good" ? "bg-primary text-black" :
+                    "bg-warning text-black"
                   }>
                     {metric.status}
                   </Badge>
@@ -280,7 +280,7 @@ const AIAgentMatrix = () => {
                   <h4 className="font-semibold text-foreground">{capability.capability}</h4>
                   <div className="flex items-center space-x-4">
                     <div className="text-sm text-muted-foreground">{capability.agents} agents</div>
-                    <Badge className="bg-primary text-white">{capability.proficiency}%</Badge>
+                    <Badge className="bg-primary text-black">{capability.proficiency}%</Badge>
                   </div>
                 </div>
                 <Progress value={capability.proficiency} className="h-2 mb-3" />
@@ -323,9 +323,9 @@ const AIAgentMatrix = () => {
                   <div className="text-right">
                     <div className="text-sm font-medium text-foreground">ETA: {task.eta}</div>
                     <Badge className={
-                      task.priority === "High" ? "bg-destructive text-white" :
-                      task.priority === "Medium" ? "bg-warning text-white" :
-                      "bg-success text-white"
+                      task.priority === "High" ? "bg-destructive text-black" :
+                      task.priority === "Medium" ? "bg-warning text-black" :
+                      "bg-success text-black"
                     }>
                       {task.priority}
                     </Badge>

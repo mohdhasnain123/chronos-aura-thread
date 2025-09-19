@@ -76,7 +76,7 @@ const IoMTDeviceNetwork = () => {
           <h1 className="text-3xl font-bold text-foreground">IoMT Device Network</h1>
           <p className="text-muted-foreground">Real-time monitoring of Internet of Medical Things devices</p>
         </div>
-        <Badge className={`${networkData.networkHealth > 95 ? 'bg-success' : 'bg-warning'} text-white`}>
+        <Badge className={`${networkData.networkHealth > 95 ? 'bg-success' : 'bg-warning'} text-black`}>
           Network Health: {networkData.networkHealth.toFixed(1)}%
         </Badge>
       </div>
@@ -92,7 +92,7 @@ const IoMTDeviceNetwork = () => {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-foreground">{networkData.totalDevices.toLocaleString()}</div>
-            <Badge className="bg-primary text-white mt-2">+2.3% vs last week</Badge>
+            <Badge className="bg-primary text-black mt-2">+2.3% vs last week</Badge>
           </CardContent>
         </Card>
 
@@ -168,7 +168,7 @@ const IoMTDeviceNetwork = () => {
                     <category.icon className={`h-5 w-5 ${category.color}`} />
                     <h4 className="font-semibold text-foreground">{category.name}</h4>
                   </div>
-                  <Badge className="bg-success text-white">{category.status.toFixed(2)}%</Badge>
+                  <Badge className="bg-success text-black">{category.status.toFixed(2)}%</Badge>
                 </div>
                 <div className="text-lg font-bold text-foreground mb-2">{category.count} devices</div>
                 <Progress value={category.status} className="h-2" />
@@ -192,7 +192,7 @@ const IoMTDeviceNetwork = () => {
               <div key={index} className="border rounded-lg p-4 bg-background/50">
                 <div className="flex items-center justify-between mb-2">
                   <h4 className="font-semibold text-foreground">{metric.metric}</h4>
-                  <Badge className={metric.color + " text-white"}>{metric.status}</Badge>
+                  <Badge className={metric.color + " text-black"}>{metric.status}</Badge>
                 </div>
                 <div className="text-2xl font-bold text-primary">{metric.value}</div>
               </div>
@@ -227,9 +227,9 @@ const IoMTDeviceNetwork = () => {
                   <div className="text-right">
                     <div className="text-sm font-medium text-foreground">{alert.room}</div>
                     <Badge className={
-                      alert.severity === "High" ? "bg-destructive text-white" :
-                      alert.severity === "Medium" ? "bg-warning text-white" :
-                      "bg-success text-white"
+                      alert.severity === "High" ? "bg-destructive text-black" :
+                      alert.severity === "Medium" ? "bg-warning text-black" :
+                      "bg-success text-black"
                     }>
                       {alert.severity}
                     </Badge>

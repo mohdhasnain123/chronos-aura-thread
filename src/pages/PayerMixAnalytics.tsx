@@ -69,7 +69,7 @@ const PayerMixAnalytics = () => {
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
                 <CardTitle className="text-sm font-medium text-muted-foreground">{payer.name}</CardTitle>
-                <Badge className={`${payer.color} text-white`}>
+                <Badge className={`${payer.color} text-black`}>
                   {payer.trend}
                 </Badge>
               </div>
@@ -153,9 +153,9 @@ const PayerMixAnalytics = () => {
                   <div className="text-right">
                     <div className="text-lg font-bold text-primary">{contract.contractValue}</div>
                     <Badge className={
-                      contract.status === "Active" ? "bg-success text-white" :
-                      contract.status === "Renewal Due" ? "bg-warning text-white" :
-                      "bg-destructive text-white"
+                      contract.status === "Active" ? "bg-success text-black" :
+                      contract.status === "Renewal Due" ? "bg-warning text-black" :
+                      "bg-destructive text-black"
                     }>
                       {contract.status}
                     </Badge>

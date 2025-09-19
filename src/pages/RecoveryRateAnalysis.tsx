@@ -67,7 +67,7 @@ const RecoveryRateAnalysis = () => {
           <h1 className="text-3xl font-bold text-foreground">Recovery Rate Analysis</h1>
           <p className="text-muted-foreground">Comprehensive patient recovery and outcome analytics</p>
         </div>
-        <Badge className="bg-success text-white">
+        <Badge className="bg-success text-black">
           Overall Rate: 94.1%
         </Badge>
       </div>
@@ -79,7 +79,7 @@ const RecoveryRateAnalysis = () => {
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
                 <CardTitle className="text-sm font-medium text-muted-foreground">{metric.category}</CardTitle>
-                <Badge className="bg-success text-white">
+                <Badge className="bg-success text-black">
                   {metric.trend}
                 </Badge>
               </div>
@@ -118,7 +118,7 @@ const RecoveryRateAnalysis = () => {
               <div key={index} className="border rounded-lg p-4 bg-background/50">
                 <div className="flex items-center justify-between mb-2">
                   <h4 className="font-semibold text-foreground">{outcome.outcome}</h4>
-                  <Badge className={outcome.color + " text-white"}>
+                  <Badge className={outcome.color + " text-black"}>
                     {outcome.count}
                   </Badge>
                 </div>
@@ -183,9 +183,9 @@ const RecoveryRateAnalysis = () => {
                   <div className="flex items-center space-x-3">
                     <h4 className="font-semibold text-foreground">{risk.factor}</h4>
                     <Badge className={
-                      risk.impact === "High" ? "bg-destructive text-white" :
-                      risk.impact === "Medium" ? "bg-warning text-white" :
-                      "bg-success text-white"
+                      risk.impact === "High" ? "bg-destructive text-black" :
+                      risk.impact === "Medium" ? "bg-warning text-black" :
+                      "bg-success text-black"
                     }>
                       {risk.impact} Impact
                     </Badge>
