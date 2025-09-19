@@ -177,6 +177,41 @@ const CardiacSpecialists = ({ onBack }: CardiacSpecialistsProps) => {
         </Badge>
       </div>
 
+      {/* Recent Activities */}
+      <Card className="bg-gradient-card border-border shadow-lg">
+        <CardHeader>
+          <CardTitle className="text-lg text-foreground flex items-center space-x-2">
+            <Clock className="h-5 w-5 text-primary" />
+            <span>Recent Activities</span>
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-3">
+            <div className="flex items-center justify-between p-3 bg-background/50 rounded-lg">
+              <div className="flex items-center space-x-3">
+                <div className="w-2 h-2 bg-success rounded-full animate-pulse"></div>
+                <span className="text-sm text-foreground">Dr. Sarah Chen completed emergency consultation</span>
+              </div>
+              <span className="text-xs text-muted-foreground">2 min ago</span>
+            </div>
+            <div className="flex items-center justify-between p-3 bg-background/50 rounded-lg">
+              <div className="flex items-center space-x-3">
+                <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
+                <span className="text-sm text-foreground">Dr. Michael Torres reviewed cardiac protocol</span>
+              </div>
+              <span className="text-xs text-muted-foreground">5 min ago</span>
+            </div>
+            <div className="flex items-center justify-between p-3 bg-background/50 rounded-lg">
+              <div className="flex items-center space-x-3">
+                <div className="w-2 h-2 bg-warning rounded-full animate-pulse"></div>
+                <span className="text-sm text-foreground">Emergency team activated for cardiac event</span>
+              </div>
+              <span className="text-xs text-muted-foreground">8 min ago</span>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* Specialists List */}
       <div className="space-y-6">
         {specialists.map((specialist, index) => (

@@ -205,6 +205,41 @@ const OrthopedicSpecialists = ({ onBack }: OrthopedicSpecialistsProps) => {
         </Badge>
       </div>
 
+      {/* Recent Activities */}
+      <Card className="bg-gradient-card border-border shadow-lg">
+        <CardHeader>
+          <CardTitle className="text-lg text-foreground flex items-center space-x-2">
+            <Clock className="h-5 w-5 text-primary" />
+            <span>Recent Activities</span>
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-3">
+            <div className="flex items-center justify-between p-3 bg-background/50 rounded-lg">
+              <div className="flex items-center space-x-3">
+                <div className="w-2 h-2 bg-success rounded-full animate-pulse"></div>
+                <span className="text-sm text-foreground">Dr. Thompson reviewed knee trauma protocol</span>
+              </div>
+              <span className="text-xs text-muted-foreground">1 min ago</span>
+            </div>
+            <div className="flex items-center justify-between p-3 bg-background/50 rounded-lg">
+              <div className="flex items-center space-x-3">
+                <div className="w-2 h-2 bg-warning rounded-full animate-pulse"></div>
+                <span className="text-sm text-foreground">Emergency orthopedic consultation requested</span>
+              </div>
+              <span className="text-xs text-muted-foreground">3 min ago</span>
+            </div>
+            <div className="flex items-center justify-between p-3 bg-background/50 rounded-lg">
+              <div className="flex items-center space-x-3">
+                <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
+                <span className="text-sm text-foreground">Dr. Martinez updated treatment protocols</span>
+              </div>
+              <span className="text-xs text-muted-foreground">6 min ago</span>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
       <div className="grid gap-6">
         {specialists.map((specialist) => (
           <Card key={specialist.id} className="bg-card/50 backdrop-blur-sm border-border/50 shadow-glow">

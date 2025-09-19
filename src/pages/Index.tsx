@@ -15,10 +15,11 @@ import StaffOptimization from "@/components/dashboard/StaffOptimization";
 import DoctorAvailabilityAnalytics from "@/components/dashboard/DoctorAvailabilityAnalytics";
 import SupportStaffAnalytics from "@/components/dashboard/SupportStaffAnalytics";
 import PatientAnalytics from "@/components/dashboard/PatientAnalytics";
+import EmergencyDoctors from "@/components/dashboard/EmergencyDoctors";
 import AIChatbot from "@/components/shared/AIChatbot";
 
 const Index = () => {
-  const [currentView, setCurrentView] = useState<'dashboard' | 'criticalPatients' | 'patientAlert' | 'specialists' | 'aiAgent' | 'doctorStatus' | 'appointments' | 'treatments' | 'beds' | 'staff'>('dashboard');
+  const [currentView, setCurrentView] = useState<'dashboard' | 'criticalPatients' | 'patientAlert' | 'specialists' | 'aiAgent' | 'doctorStatus' | 'appointments' | 'treatments' | 'beds' | 'staff' | 'emergencyDoctors'>('dashboard');
   const [selectedPatientId, setSelectedPatientId] = useState<string>('');
 
   // Listen for the custom events from QuickStats
@@ -30,6 +31,8 @@ const Index = () => {
     const handleShowTreatments = () => setCurrentView('treatments');
     const handleShowBedUtilization = () => setCurrentView('beds');
     const handleShowStaffOptimization = () => setCurrentView('staff');
+    const handleShowEmergencyDoctors = () => setCurrentView('emergencyDoctors');
+    const handleShowNotifications = () => setCurrentView('patientAlert');
 
     window.addEventListener('showCriticalPatients', handleShowCriticalPatients);
     window.addEventListener('showAIAgent', handleShowAIAgent);
@@ -37,6 +40,8 @@ const Index = () => {
     window.addEventListener('showTreatments', handleShowTreatments);
     window.addEventListener('showBedUtilization', handleShowBedUtilization);
     window.addEventListener('showStaffOptimization', handleShowStaffOptimization);
+    window.addEventListener('showEmergencyDoctors', handleShowEmergencyDoctors);
+    window.addEventListener('showNotifications', handleShowNotifications);
 
     return () => {
       window.removeEventListener('showCriticalPatients', handleShowCriticalPatients);
@@ -45,6 +50,8 @@ const Index = () => {
       window.removeEventListener('showTreatments', handleShowTreatments);
       window.removeEventListener('showBedUtilization', handleShowBedUtilization);
       window.removeEventListener('showStaffOptimization', handleShowStaffOptimization);
+      window.removeEventListener('showEmergencyDoctors', handleShowEmergencyDoctors);
+      window.removeEventListener('showNotifications', handleShowNotifications);
     };
   }, []);
 
@@ -109,30 +116,26 @@ const Index = () => {
             onBack={() => setCurrentView('dashboard')}
           />
         );
+      case 'emergencyDoctors':
+        return (
+          <EmergencyDoctors 
+            onBack={() => setCurrentView('dashboard')}
+          />
+        );
       default:
         return (
           <>
             <QuickStats />
-            <div className="space-y-8">
-              <div>
-                <h2 className="text-2xl font-bold text-foreground mb-6">Doctor Availability Analytics</h2>
-                <p className="text-muted-foreground mb-6">Real-time insights into medical staff distribution across specialties</p>
+            {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8"> */}
+              <PatientOverview />
+            {/* </div> */}
+             <div className="mt-8">
                 <DoctorAvailabilityAnalytics />
-              </div>
-              
-              <div>
-                <h2 className="text-2xl font-bold text-foreground mb-6">Support Staff Analytics</h2>
-                <p className="text-muted-foreground mb-6">Current status and distribution of nursing and support staff</p>
                 <SupportStaffAnalytics />
               </div>
-              
-              <div>
-                <h2 className="text-2xl font-bold text-foreground mb-6">Active Patient Analytics</h2>
-                <p className="text-muted-foreground mb-6">In-house and outpatient distribution across departments</p>
-                <PatientAnalytics />
-              </div>
+            <div className="mt-8">
+              <PatientAnalytics />
             </div>
-            <PatientOverview />
           </>
         );
     }

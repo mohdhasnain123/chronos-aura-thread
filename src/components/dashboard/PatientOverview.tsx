@@ -100,7 +100,7 @@ const PatientOverview = () => {
   return (
     <div className="space-y-6">
       {/* Utilization & Productivity Metrics */}
-      <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card className="bg-gradient-card border-border shadow-md">
           <CardContent className="p-4 text-center">
             <TrendingUp className="h-6 w-6 text-primary mx-auto mb-2" />
@@ -108,13 +108,13 @@ const PatientOverview = () => {
             <div className="text-xs text-muted-foreground">Patient Volume</div>
           </CardContent>
         </Card>
-        <Card className="bg-gradient-card border-border shadow-md">
+        {/* <Card className="bg-gradient-card border-border shadow-md">
           <CardContent className="p-4 text-center">
             <Users className="h-6 w-6 text-secondary mx-auto mb-2" />
             <div className="text-2xl font-bold text-foreground">{utilizationMetrics.bedOccupancy}%</div>
             <div className="text-xs text-muted-foreground">Bed Occupancy</div>
           </CardContent>
-        </Card>
+        </Card> */}
         <Card className="bg-gradient-card border-border shadow-md">
           <CardContent className="p-4 text-center">
             <Clock className="h-6 w-6 text-accent mx-auto mb-2" />
@@ -129,18 +129,18 @@ const PatientOverview = () => {
             <div className="text-xs text-muted-foreground">Physician RVUs</div>
           </CardContent>
         </Card>
-        <Card className="bg-gradient-card border-border shadow-md">
+        {/* <Card className="bg-gradient-card border-border shadow-md">
           <CardContent className="p-4 text-center">
             <Zap className="h-6 w-6 text-warning mx-auto mb-2" />
             <div className="text-2xl font-bold text-foreground">{utilizationMetrics.resourceUtilization}%</div>
             <div className="text-xs text-muted-foreground">Resource Usage</div>
           </CardContent>
-        </Card>
+        </Card> */}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-6"> */}
         {/* Payer Mix Analytics */}
-        <Card className="bg-gradient-card border-border shadow-md">
+        {/* <Card className="bg-gradient-card border-border shadow-md">
           <CardHeader>
             <CardTitle className="flex items-center space-x-2 text-foreground">
               <DollarSign className="h-5 w-5 text-primary" />
@@ -165,10 +165,10 @@ const PatientOverview = () => {
               </div>
             ))}
           </CardContent>
-        </Card>
+        </Card> */}
 
         {/* Recovery Rate by Specialty */}
-        <Card className="bg-gradient-card border-border shadow-md">
+        {/* <Card className="bg-gradient-card border-border shadow-md">
           <CardHeader>
             <CardTitle className="flex items-center space-x-2 text-foreground">
               <Heart className="h-5 w-5 text-primary" />
@@ -194,12 +194,12 @@ const PatientOverview = () => {
               </div>
             ))}
           </CardContent>
-        </Card>
-      </div>
+        </Card> */}
+      {/* </div> */}
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-6"> */}
         {/* IoMT Connected Devices */}
-        <Card className="bg-gradient-card border-border shadow-md">
+        {/* <Card className="bg-gradient-card border-border shadow-md">
           <CardHeader>
             <CardTitle className="flex items-center space-x-2 text-foreground">
               <Wifi className="h-5 w-5 text-primary" />
@@ -223,10 +223,10 @@ const PatientOverview = () => {
               </div>
             ))}
           </CardContent>
-        </Card>
+        </Card> */}
 
         {/* AI Agent Matrix */}
-        <Card className="bg-gradient-card border-border shadow-md">
+        {/* <Card className="bg-gradient-card border-border shadow-md">
           <CardHeader>
             <CardTitle className="flex items-center space-x-2 text-foreground">
               <Brain className="h-5 w-5 text-primary" />
@@ -245,15 +245,15 @@ const PatientOverview = () => {
                 </div>
                 <div className="text-right">
                   <div className="font-semibold text-foreground">{agent.count}</div>
-                  <Badge className={`${agent.status === 'active' ? 'bg-success' : 'bg-warning'} text-white text-xs`}>
-                    {agent.status}
+                  <Badge className={`${agent.status === 'active' ? 'bg-success' : 'bg-warning'} text-black text-xs`}>
+                    {agent.count}
                   </Badge>
                 </div>
               </div>
             ))}
           </CardContent>
-        </Card>
-      </div>
+        </Card> */}
+      {/* </div> */}
     </div>
   );
 };

@@ -27,7 +27,7 @@ const SupportStaffAnalytics = () => {
         busy: Math.max(1, staff.busy + Math.floor(Math.random() * 3) - 1),
         offline: Math.max(1, staff.offline + Math.floor(Math.random() * 2) - 1)
       })));
-    }, 2000);
+    }, 8000);
 
     return () => clearInterval(interval);
   }, []);
@@ -157,7 +157,7 @@ const chartConfig = {
         </CardHeader>
         <CardContent>
           <ChartContainer config={chartConfig} className="h-64">
-            <ResponsiveContainer width="100%" height="100%">
+            <ResponsiveContainer width="80%" height="80%">
               <PieChart onClick={(data) => handleChartClick(data, "staff-overview")}>
                 <Pie
                   data={overallStaffStatus}
@@ -183,9 +183,9 @@ const chartConfig = {
               </PieChart>
             </ResponsiveContainer>
           </ChartContainer>
-          <div className="space-y-3 mt-4">
+          <div className="space-y-2 mt-2">
             {overallStaffStatus.map((item) => (
-              <div key={item.name} className="flex items-center justify-between p-3 bg-muted/30 rounded-lg">
+              <div key={item.name} className="flex items-center justify-between p-2 bg-muted/30 rounded-lg">
                 <div className="flex items-center gap-3">
                   <div 
                     className="w-3 h-3 rounded-full" 
@@ -194,7 +194,7 @@ const chartConfig = {
                   <span className="text-sm font-medium text-foreground">{item.name}</span>
                 </div>
                 <div className="text-right">
-                  <div className="text-lg font-bold text-foreground">{item.value}</div>
+                  {/* <div className="text-lg font-bold text-foreground">{item.value}</div> */}
                   <div className="text-xs text-muted-foreground">{item.percentage}%</div>
                 </div>
               </div>

@@ -78,9 +78,9 @@ const UpcomingAppointments = ({ onBack }: UpcomingAppointmentsProps) => {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'confirmed': return 'bg-success text-white';
-      case 'waiting': return 'bg-warning text-white';
-      case 'critical': return 'bg-destructive text-white';
+      case 'confirmed': return 'bg-success text-black';
+      case 'waiting': return 'bg-warning text-black';
+      case 'critical': return 'bg-destructive text-black';
       default: return 'bg-muted text-foreground';
     }
   };

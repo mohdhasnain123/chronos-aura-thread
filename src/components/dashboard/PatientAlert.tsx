@@ -27,9 +27,9 @@ const PatientAlert = ({ onBack, onViewSpecialists }: PatientAlertProps) => {
 
   const ambulanceData = {
     status: "En Route",
-    eta: "6 minutes",
+    eta: 8 * 60 + 45, // 8 minutes 45 seconds in total seconds
     crew: "Paramedic Team Bravo-3",
-    medications: ["Morphine 5mg IV", "Ketorolac 30mg IM", "Saline 500ml IV"],
+    medications: ["Morphine 5mg IV", "Ketorolac 30mg IM", "Normal Saline 1000ml"],
     procedures: ["Knee immobilization completed", "Pain assessment (8/10)", "Circulation check - normal"],
     liveFeed: "HD Video Active",
     feedImage: "https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=400&h=250&fit=crop"
@@ -51,6 +51,22 @@ const PatientAlert = ({ onBack, onViewSpecialists }: PatientAlertProps) => {
   ]);
 
   const [showVideoCall, setShowVideoCall] = useState(false);
+  const [eta, setEta] = useState(ambulanceData.eta);
+
+  // Update ETA countdown every second
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setEta(prev => Math.max(0, prev - 1));
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const formatTime = (seconds) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
 
   // Live updating vitals every second
   useEffect(() => {
@@ -150,10 +166,10 @@ const PatientAlert = ({ onBack, onViewSpecialists }: PatientAlertProps) => {
           <Badge className="bg-destructive text-destructive-foreground animate-pulse">
             CRITICAL
           </Badge>
-          <Badge className="bg-warning text-warning-foreground">
+          <Badge className="bg-warning text-warning-foreground text-black">
             Risk: {patientData.riskScore}%
           </Badge>
-          <Badge className="bg-success text-white">
+          <Badge className="bg-success text-black">
             Payer: Pre-Approved
           </Badge>
         </div>
@@ -203,10 +219,10 @@ const PatientAlert = ({ onBack, onViewSpecialists }: PatientAlertProps) => {
                   <Phone className="h-4 w-4 mr-2" />
                   Emergency Call
                 </Button>
-                <Button variant="outline" className="w-full border-warning text-warning hover:bg-warning hover:text-white">
+                {/* <Button variant="outline" className="w-full border-warning text-warning hover:bg-warning hover:text-black">
                   <Users className="h-4 w-4 mr-2" />
                   Alert Medical Team
-                </Button>
+                </Button> */}
               </div>
             </div>
           </CardContent>
@@ -218,7 +234,7 @@ const PatientAlert = ({ onBack, onViewSpecialists }: PatientAlertProps) => {
             <CardTitle className="flex items-center space-x-2">
               <Activity className="h-5 w-5 text-success animate-pulse" />
               <span>Live Wearable Data</span>
-              <Badge className="bg-success text-white text-xs">LIVE</Badge>
+              <Badge className="bg-success text-black text-xs">LIVE</Badge>
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -231,7 +247,7 @@ const PatientAlert = ({ onBack, onViewSpecialists }: PatientAlertProps) => {
                   </div>
                   <div className="text-right">
                     <p className="font-bold text-lg text-foreground">{vital.value}</p>
-                    <Badge className={`${getStatusColor(vital.status)} text-xs`}>
+                    <Badge className={`${getStatusColor(vital.status)} text-xs text-black`}>
                       {vital.trend}
                     </Badge>
                   </div>
@@ -247,7 +263,7 @@ const PatientAlert = ({ onBack, onViewSpecialists }: PatientAlertProps) => {
             <CardTitle className="flex items-center space-x-2">
               <Shield className="h-5 w-5 text-primary" />
               <span>Medical Records</span>
-              <Badge className="bg-primary text-white text-xs">BLOCKCHAIN SECURED</Badge>
+              <Badge className="bg-primary text-black text-xs">BLOCKCHAIN SECURED</Badge>
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -264,14 +280,42 @@ const PatientAlert = ({ onBack, onViewSpecialists }: PatientAlertProps) => {
                 </div>
               </div>
               
-              <Button variant="outline" className="w-full" onClick={onViewSpecialists}>
+              {/* <Button variant="outline" className="w-full" onClick={onViewSpecialists}>
                 <Heart className="h-4 w-4 mr-2" />
                 View Orthopedic Specialists
-              </Button>
-              <Button variant="outline" className="w-full" onClick={() => setShowVideoCall(true)}>
-                <Video className="h-4 w-4 mr-2" />
-                Video Consultation with Orthopedic
-              </Button>
+              </Button> */}
+              <Button variant="outline" className="w-full border-warning text-warning hover:bg-warning hover:text-black">
+                  <Users className="h-4 w-4 mr-2" />
+                  Alert Medical Team
+                </Button>
+                <div>
+              <h4 className="font-semibold text-foreground mb-2">Live Video Consultation</h4>
+              <div className="relative bg-black rounded-lg overflow-hidden border-2 border-primary mb-3">
+                <div className="w-full h-20 bg-gradient-to-r from-primary/20 to-accent/20 flex items-center justify-center">
+                  <div className="text-center text-white">
+                    <Video className="h-6 w-6 mx-auto mb-1 animate-pulse" />
+                    <p className="text-xs">Video Feed Active</p>
+                  </div>
+                </div>
+                <div className="absolute top-2 left-2 bg-green-600 text-white px-2 py-1 rounded text-xs font-bold animate-pulse">
+                  ● LIVE
+                </div>
+              </div>
+              
+              <div className="space-y-1">
+                <p 
+                  className="text-primary hover:text-primary/80 cursor-pointer font-medium flex items-center gap-2 text-sm"
+                  // onClick={() => setShowVideoCall(true)}
+                >
+                  <Video className="h-4 w-4" />
+                  Video Consultation with Orthopedic Specialist
+                </p>
+                <p className="text-muted-foreground hover:text-foreground cursor-pointer font-medium flex items-center gap-2 text-sm">
+                  <Video className="h-4 w-4" />
+                  Video Consultation with Neurologist
+                </p>
+              </div>
+            </div>
             </div>
           </CardContent>
         </Card>
@@ -280,28 +324,37 @@ const PatientAlert = ({ onBack, onViewSpecialists }: PatientAlertProps) => {
       {/* Ambulance Treatment Plan */}
       <Card className="bg-gradient-card border-border shadow-lg">
         <CardHeader>
-          <CardTitle className="flex items-center space-x-2">
-            <Truck className="h-5 w-5 text-warning" />
-            <span>Ambulance Treatment Plan</span>
-            <Badge className="bg-warning text-white">{ambulanceData.status}</Badge>
-            <Badge className="bg-success text-white">ETA: {ambulanceData.eta}</Badge>
+          <CardTitle className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <Truck className="h-5 w-5 text-warning" />
+              <span>Ambulance Treatment Plan</span>
+              <Badge className="bg-warning text-black">{ambulanceData.status}</Badge>
+            </div>
+            <div className="flex items-center gap-2 text-lg font-bold">
+              <Clock className="h-5 w-5 text-warning" />
+              <span className="text-warning">ETA: {formatTime(eta)}</span>
+            </div>
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
-              <h4 className="font-semibold text-foreground mb-2">Crew Information</h4>
-              <p className="text-sm text-muted-foreground">{ambulanceData.crew}</p>
-              <div className="mt-2 p-2 bg-success/10 rounded border border-success/20">
+              <h4 className="font-semibold text-foreground mb-2">Live Ambulance Feed</h4>
+              <div className="p-2 bg-success/10 rounded border border-success/20">
                 <div className="flex items-center space-x-2 mb-2">
                   <Video className="h-4 w-4 text-success" />
                   <span className="text-sm font-medium text-success">{ambulanceData.liveFeed}</span>
                 </div>
-                <img 
-                  src={ambulanceData.feedImage} 
-                  alt="Live ambulance feed" 
-                  className="w-full h-24 object-cover rounded border border-success/30"
-                />
+                <div className="relative">
+                  <img 
+                    src={ambulanceData.feedImage} 
+                    alt="Live ambulance feed" 
+                    className="w-full h-24 object-cover rounded border border-success/30"
+                  />
+                  <div className="absolute top-2 left-2 bg-red-600 text-white px-2 py-1 rounded text-xs font-bold animate-pulse">
+                    ● LIVE
+                  </div>
+                </div>
               </div>
             </div>
             
@@ -315,25 +368,99 @@ const PatientAlert = ({ onBack, onViewSpecialists }: PatientAlertProps) => {
                   </li>
                 ))}
               </ul>
-            </div>
-            
-            <div>
-              <h4 className="font-semibold text-foreground mb-2">Procedures Completed</h4>
+              
+              <h4 className="font-semibold text-foreground mt-4 mb-2">Current Symptoms</h4>
               <ul className="space-y-1">
-                {ambulanceData.procedures.map((procedure, index) => (
-                  <li key={index} className="text-sm text-muted-foreground flex items-center space-x-2">
-                    <Activity className="h-3 w-3 text-primary" />
-                    <span>{procedure}</span>
-                  </li>
-                ))}
+                <li className="text-sm text-destructive flex items-center space-x-2">
+                  <AlertTriangle className="h-3 w-3 text-destructive" />
+                  <span>Bob is incoherent, losing consciousness on and off</span>
+                </li>
+                <li className="text-sm text-warning flex items-center space-x-2">
+                  <AlertTriangle className="h-3 w-3 text-warning" />
+                  <span>Severe pain in right knee - 9/10 on pain scale</span>
+                </li>
+                <li className="text-sm text-warning flex items-center space-x-2">
+                  <AlertTriangle className="h-3 w-3 text-warning" />
+                  <span>Visible deformity and swelling in right knee</span>
+                </li>
+                <li className="text-sm text-info flex items-center space-x-2">
+                  <AlertTriangle className="h-3 w-3 text-info" />
+                  <span>Patient reports fall from 8-foot scaffolding</span>
+                </li>
               </ul>
             </div>
+          
           </div>
         </CardContent>
       </Card>
 
+      {/* Selected Orthopedic Doctor */}
+      <Card className="bg-gradient-card border-border shadow-lg">
+        <CardHeader>
+          <CardTitle className="flex items-center space-x-2">
+            <Users className="h-5 w-5 text-primary" />
+            <span>Selected Orthopedic Specialist</span>
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="flex items-start justify-between">
+            <div className="space-y-2">
+              <h3 className="text-lg font-semibold text-foreground">Dr. Sarah Chen</h3>
+              <p className="text-muted-foreground">Orthopedic Surgery - Trauma Specialist</p>
+              <p className="text-sm text-muted-foreground">15+ years experience • Available in OR 3</p>
+            </div>
+            <Badge className="bg-success text-success-foreground text-black">Available</Badge>
+          </div>
+          
+          <div className="space-y-3">
+            <h4 className="font-semibold text-foreground">Detailed Treatment Plan:</h4>
+            <ul className="text-sm text-muted-foreground space-y-1 ml-4">
+              <li>• Immediate X-ray and MRI of right knee</li>
+              <li>• Pain management protocol initiation</li>
+              <li>• Surgical consultation for potential ORIF procedure</li>
+              <li>• Post-operative rehabilitation planning</li>
+              <li>• 24-hour monitoring in orthopedic unit</li>
+            </ul>
+          </div>
+          
+          <div className="bg-background p-4 rounded-lg border border-border">
+            <h4 className="font-semibold text-foreground mb-2 flex items-center gap-2">
+              <Zap className="h-4 w-4" />
+              Cost Estimation:
+            </h4>
+            <div className="grid grid-cols-2 gap-4 text-sm">
+              <div>
+                <p className="text-muted-foreground">Emergency Consultation:</p>
+                <p className="font-semibold text-foreground">$850</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Imaging (X-ray + MRI):</p>
+                <p className="font-semibold text-foreground">$2,400</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Surgery (if required):</p>
+                <p className="font-semibold text-foreground">$15,000 - $25,000</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Hospital Stay (2-3 days):</p>
+                <p className="font-semibold text-foreground">$4,500 - $6,750</p>
+              </div>
+            </div>
+            <div className="mt-2 pt-2 border-t border-border flex justify-between items-center">
+              <p className="font-bold text-foreground">Total Estimated Cost:</p>
+              <p className="font-bold text-primary text-lg">$22,750 - $35,000</p>
+            </div>
+          </div>
+          
+          <Button className="w-full bg-gradient-primary text-primary-foreground hover:opacity-90">
+            <Zap className="h-4 w-4 mr-2" />
+            Alert Payers & Personal AI Agent
+          </Button>
+        </CardContent>
+      </Card>
+
       {/* Diagnostic & Treatment Protocols */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <Card className="bg-gradient-card border-border shadow-lg">
           <CardHeader>
             <CardTitle className="text-sm font-semibold text-warning">Immediate Actions</CardTitle>
@@ -397,7 +524,7 @@ const PatientAlert = ({ onBack, onViewSpecialists }: PatientAlertProps) => {
             </ul>
           </CardContent>
         </Card>
-      </div>
+      </div> */}
 
       {/* Video Call Modal */}
       {showVideoCall && (
@@ -407,7 +534,7 @@ const PatientAlert = ({ onBack, onViewSpecialists }: PatientAlertProps) => {
               <CardTitle className="flex items-center space-x-2">
                 <Video className="h-5 w-5 text-success" />
                 <span>Dr. Sarah Chen - Orthopedic Surgeon</span>
-                <Badge className="bg-success text-white text-xs">LIVE</Badge>
+                <Badge className="bg-success text-black text-xs">LIVE</Badge>
               </CardTitle>
               <Button variant="ghost" onClick={() => setShowVideoCall(false)} className="p-2">
                 <X className="h-5 w-5" />
@@ -431,7 +558,7 @@ const PatientAlert = ({ onBack, onViewSpecialists }: PatientAlertProps) => {
                       <Video className="h-4 w-4" />
                     </Button>
                   </div>
-                  <div className="text-white text-sm bg-black/50 px-3 py-1 rounded">
+                  <div className="text-black text-sm bg-black/50 px-3 py-1 rounded">
                     Discussing treatment options for knee injury...
                   </div>
                 </div>

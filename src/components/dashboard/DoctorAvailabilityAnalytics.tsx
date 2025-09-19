@@ -11,6 +11,7 @@ const DoctorAvailabilityAnalytics = () => {
     { specialty: "Orthopedics", available: 2, busy: 1, offline: 0 },
     { specialty: "Dermatology", available: 2, busy: 0, offline: 1 },
     { specialty: "Psychiatry", available: 1, busy: 1, offline: 1 },
+    { specialty: "Emergency", available: 5, busy: 1, offline: 1 },
   ]);
 
   const [overallStatusData, setOverallStatusData] = useState([
@@ -27,7 +28,7 @@ const DoctorAvailabilityAnalytics = () => {
         busy: Math.max(1, spec.busy + Math.floor(Math.random() * 3) - 1),
         offline: Math.max(1, spec.offline + Math.floor(Math.random() * 2) - 1)
       })));
-    }, 2000);
+    }, 8000);
 
     return () => clearInterval(interval);
   }, []);
@@ -158,7 +159,7 @@ const chartConfig = {
                   <span className="text-sm font-medium text-foreground">{item.name}</span>
                 </div>
                 <div className="text-right">
-                  <div className="text-lg font-bold text-foreground">{item.value}</div>
+                  {/* <div className="text-lg font-bold text-foreground">{item.value}</div> */}
                   <div className="text-xs text-muted-foreground">{item.percentage}%</div>
                 </div>
               </div>

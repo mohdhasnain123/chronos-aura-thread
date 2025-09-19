@@ -7,7 +7,7 @@ const QuickStats = () => {
     {
       title: "Upcoming Appointments",
       value: "47",
-      change: "Next: Dr. Smith 9:00 AM",
+      change: "",
       icon: Calendar,
       color: "bg-gradient-primary",
       isClickable: true,
@@ -22,15 +22,15 @@ const QuickStats = () => {
       isClickable: true,
       action: "treatments"
     },
-    {
-      title: "Critical Alerts",
-      value: "1",
-      change: "AI-detected emergencies",
-      icon: AlertTriangle,
-      color: "bg-destructive",
-      isClickable: true,
-      action: "critical"
-    },
+    // {
+    //   title: "Emergency Doctors",
+    //   value: "8",
+    //   change: "Available for emergency cases",
+    //   icon: Users,
+    //   color: "bg-destructive",
+    //   isClickable: true,
+    //   action: "emergencyDoctors"
+    // },
     {
       title: "Bed Utilization",
       value: "87%",
@@ -49,15 +49,15 @@ const QuickStats = () => {
       isClickable: true,
       action: "staff"
     },
-    {
-      title: "AI Agent Status",
-      value: "Online",
-      change: "Ready to assist",
-      icon: Brain,
-      color: "bg-gradient-primary",
-      isClickable: true,
-      action: "aiAgent"
-    },
+    // {
+    //   title: "AI Agent Status",
+    //   value: "Online",
+    //   change: "Ready to assist",
+    //   icon: Brain,
+    //   color: "bg-gradient-primary",
+    //   isClickable: true,
+    //   action: "aiAgent"
+    // },
   ]);
 
   useEffect(() => {
@@ -66,7 +66,7 @@ const QuickStats = () => {
         const baseValues = {
           "Upcoming Appointments": { base: 47, range: 10 },
           "Active Treatments": { base: 156, range: 15 },
-          "Critical Alerts": { base: 1, range: 1 },
+          "Emergency Doctors": { base: 8, range: 4 },
           "Bed Utilization": { base: 87, range: 8 },
           "Staff Optimization": { base: 94, range: 6 }
         };
@@ -95,9 +95,9 @@ const QuickStats = () => {
   const handleCardClick = (stat: any) => {
     if (stat.isClickable) {
       switch (stat.action) {
-        case 'critical':
-          const event = new CustomEvent('showCriticalPatients');
-          window.dispatchEvent(event);
+        case 'emergencyDoctors':
+          const emergencyEvent = new CustomEvent('showEmergencyDoctors');
+          window.dispatchEvent(emergencyEvent);
           break;
         case 'appointments':
           const appointmentsEvent = new CustomEvent('showAppointments');
@@ -124,7 +124,7 @@ const QuickStats = () => {
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
       {stats.map((stat, index) => {
         const IconComponent = stat.icon;
         return (

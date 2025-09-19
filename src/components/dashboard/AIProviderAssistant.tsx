@@ -89,7 +89,7 @@ const AIProviderAssistant = ({ onBack }: AIProviderAssistantProps) => {
             <p className="text-muted-foreground">Voice-activated healthcare management</p>
           </div>
         </div>
-        <Badge className="bg-success text-white">Online & Ready</Badge>
+        <Badge className="bg-success text-black">Online & Ready</Badge>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -182,7 +182,7 @@ const AIProviderAssistant = ({ onBack }: AIProviderAssistantProps) => {
                   <Badge className={`text-xs ${
                     capability.status === 'Active' || capability.status === 'Online' ? 'bg-success' :
                     capability.status === 'Secure' ? 'bg-primary' : 'bg-warning'
-                  } text-white`}>
+                  } text-black`}>
                     {capability.status}
                   </Badge>
                 </div>

@@ -63,9 +63,9 @@ const StaffOptimization = ({ onBack }: StaffOptimizationProps) => {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'critical': return 'bg-destructive text-white';
-      case 'high': return 'bg-warning text-white';
-      case 'optimal': return 'bg-success text-white';
+      case 'critical': return 'bg-destructive text-black';
+      case 'high': return 'bg-warning text-black';
+      case 'optimal': return 'bg-success text-black';
       default: return 'bg-muted text-foreground';
     }
   };
