@@ -8,10 +8,10 @@ import { useNavigate } from "react-router-dom";
 const PayerMixAnalytics = () => {
   const navigate = useNavigate();
   const [payerData, setPayerData] = useState([
-    { name: "Medicare", percentage: 35, amount: "$2.1M", color: "bg-primary", trend: "+5.2%" },
-    { name: "Private Insurance", percentage: 40, amount: "$2.8M", color: "bg-secondary", trend: "+8.1%" },
-    { name: "Medicaid", percentage: 15, amount: "$890K", color: "bg-accent", trend: "-2.3%" },
-    { name: "Self-Pay", percentage: 10, amount: "$650K", color: "bg-warning", trend: "+12.5%" }
+    { name: "Medicare", percentage: 35.00, amount: "$2.1M", color: "bg-primary", trend: "+5.20%" },
+    { name: "Private Insurance", percentage: 40.00, amount: "$2.8M", color: "bg-secondary", trend: "+8.10%" },
+    { name: "Medicaid", percentage: 15.00, amount: "$890K", color: "bg-accent", trend: "-2.30%" },
+    { name: "Self-Pay", percentage: 10.00, amount: "$650K", color: "bg-warning", trend: "+12.50%" }
   ]);
 
   // Live data updates
@@ -19,9 +19,9 @@ const PayerMixAnalytics = () => {
     const interval = setInterval(() => {
       setPayerData(prev => prev.map(payer => ({
         ...payer,
-        percentage: Math.max(5, Math.min(50, payer.percentage + (Math.random() - 0.5) * 2)),
-        amount: `$${(parseFloat(payer.amount.replace(/[$MK]/g, '')) + (Math.random() - 0.5) * 100).toFixed(0)}${payer.amount.includes('M') ? 'M' : 'K'}`,
-        trend: `${Math.random() > 0.5 ? '+' : '-'}${(Math.random() * 10 + 1).toFixed(1)}%`
+        percentage: parseFloat((Math.max(5, Math.min(50, payer.percentage + (Math.random() - 0.5) * 2))).toFixed(2)),
+        amount: `$${(parseFloat(payer.amount.replace(/[$MK]/g, '')) + (Math.random() - 0.5) * 100).toFixed(1)}${payer.amount.includes('M') ? 'M' : 'K'}`,
+        trend: `${Math.random() > 0.5 ? '+' : '-'}${(Math.random() * 10 + 1).toFixed(2)}%`
       })));
     }, 3000);
 
@@ -76,7 +76,7 @@ const PayerMixAnalytics = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
-                <div className="text-2xl font-bold text-foreground">{payer.percentage}%</div>
+                <div className="text-2xl font-bold text-foreground">{payer.percentage.toFixed(2)}%</div>
                 <Progress value={payer.percentage} className="h-2" />
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-muted-foreground">Revenue</span>

@@ -23,8 +23,15 @@ const IoMTDeviceNetwork = () => {
         activeDevices: prev.activeDevices + Math.floor(Math.random() * 5) - 2,
         offlineDevices: prev.offlineDevices + Math.floor(Math.random() * 3) - 1,
         batteryAlerts: prev.batteryAlerts + Math.floor(Math.random() * 2) - 1,
-        networkHealth: Math.max(94, Math.min(98, prev.networkHealth + (Math.random() - 0.5) * 0.5))
+        networkHealth: parseFloat((Math.max(94, Math.min(98, prev.networkHealth + (Math.random() - 0.5) * 0.5))).toFixed(2))
       }));
+      
+      // Update device categories
+      setDeviceCategories(prev => prev.map(category => ({
+        ...category,
+        count: Math.max(400, category.count + Math.floor(Math.random() * 10) - 5),
+        status: parseFloat((Math.max(90, Math.min(100, category.status + (Math.random() - 0.5) * 0.5))).toFixed(2))
+      })));
     }, 3000);
 
     return () => clearInterval(interval);
@@ -32,12 +39,12 @@ const IoMTDeviceNetwork = () => {
 
   const Heart = Activity; // Using Activity as Heart icon placeholder
 
-  const deviceCategories = [
+  const [deviceCategories, setDeviceCategories] = useState([
     { name: "Cardiac Monitors", count: 892, status: 98.2, icon: Heart, color: "text-red-500" },
     { name: "Blood Pressure Monitors", count: 743, status: 97.1, icon: Activity, color: "text-blue-500" },
     { name: "Pulse Oximeters", count: 654, status: 99.1, icon: Zap, color: "text-green-500" },
     { name: "Smart Wearables", count: 558, status: 94.8, icon: Watch, color: "text-purple-500" }
-  ];
+  ]);
 
   const networkMetrics = [
     { metric: "Data Throughput", value: "847 MB/s", status: "Optimal", color: "bg-success" },
@@ -161,7 +168,7 @@ const IoMTDeviceNetwork = () => {
                     <category.icon className={`h-5 w-5 ${category.color}`} />
                     <h4 className="font-semibold text-foreground">{category.name}</h4>
                   </div>
-                  <Badge className="bg-success text-white">{category.status}%</Badge>
+                  <Badge className="bg-success text-white">{category.status.toFixed(2)}%</Badge>
                 </div>
                 <div className="text-lg font-bold text-foreground mb-2">{category.count} devices</div>
                 <Progress value={category.status} className="h-2" />

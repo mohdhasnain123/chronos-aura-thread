@@ -11,7 +11,7 @@ const AIAgentMatrix = () => {
     totalAgents: 47,
     activeAgents: 43,
     totalInteractions: 12847,
-    successRate: 94.8
+    successRate: 94.80
   });
 
   // Simulate real-time updates
@@ -21,7 +21,7 @@ const AIAgentMatrix = () => {
         totalAgents: prev.totalAgents + Math.floor(Math.random() * 2),
         activeAgents: prev.activeAgents + Math.floor(Math.random() * 3) - 1,
         totalInteractions: prev.totalInteractions + Math.floor(Math.random() * 10) + 5,
-        successRate: Math.max(92, Math.min(98, prev.successRate + (Math.random() - 0.5) * 0.5))
+        successRate: parseFloat((Math.max(92, Math.min(98, prev.successRate + (Math.random() - 0.5) * 0.5))).toFixed(2))
       }));
     }, 4000);
 
@@ -184,7 +184,7 @@ const AIAgentMatrix = () => {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-success">{agentStats.successRate.toFixed(1)}%</div>
+            <div className="text-2xl font-bold text-success">{agentStats.successRate.toFixed(2)}%</div>
             <div className="text-sm text-muted-foreground mt-1">Above target</div>
           </CardContent>
         </Card>

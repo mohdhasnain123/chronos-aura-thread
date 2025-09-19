@@ -8,10 +8,10 @@ import { useNavigate } from "react-router-dom";
 const RecoveryRateAnalysis = () => {
   const navigate = useNavigate();
   const [recoveryMetrics, setRecoveryMetrics] = useState([
-    { category: "Cardiac Surgery", rate: 94.2, trend: "+2.1%", patients: 342, avgDays: 8.5 },
-    { category: "Orthopedic Surgery", rate: 96.8, trend: "+3.2%", patients: 289, avgDays: 6.2 },
-    { category: "Emergency Medicine", rate: 91.5, trend: "+1.8%", patients: 578, avgDays: 3.1 },
-    { category: "ICU Recovery", rate: 87.3, trend: "+4.5%", patients: 156, avgDays: 12.8 }
+    { category: "Cardiac Surgery", rate: 94.20, trend: "+2.10%", patients: 342, avgDays: 8.50 },
+    { category: "Orthopedic Surgery", rate: 96.80, trend: "+3.20%", patients: 289, avgDays: 6.20 },
+    { category: "Emergency Medicine", rate: 91.50, trend: "+1.80%", patients: 578, avgDays: 3.10 },
+    { category: "ICU Recovery", rate: 87.30, trend: "+4.50%", patients: 156, avgDays: 12.80 }
   ]);
 
   // Live data updates
@@ -19,10 +19,10 @@ const RecoveryRateAnalysis = () => {
     const interval = setInterval(() => {
       setRecoveryMetrics(prev => prev.map(metric => ({
         ...metric,
-        rate: Math.max(80, Math.min(98, metric.rate + (Math.random() - 0.5) * 1)),
+        rate: parseFloat((Math.max(80, Math.min(98, metric.rate + (Math.random() - 0.5) * 1))).toFixed(2)),
         patients: metric.patients + Math.floor(Math.random() * 5) - 2,
-        avgDays: Math.max(2, metric.avgDays + (Math.random() - 0.5) * 0.5),
-        trend: `${Math.random() > 0.5 ? '+' : '-'}${(Math.random() * 5 + 0.5).toFixed(1)}%`
+        avgDays: parseFloat((Math.max(2, metric.avgDays + (Math.random() - 0.5) * 0.5)).toFixed(2)),
+        trend: `${Math.random() > 0.5 ? '+' : '-'}${(Math.random() * 5 + 0.5).toFixed(2)}%`
       })));
     }, 3000);
 
@@ -86,7 +86,7 @@ const RecoveryRateAnalysis = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
-                <div className="text-2xl font-bold text-foreground">{metric.rate}%</div>
+                <div className="text-2xl font-bold text-foreground">{metric.rate.toFixed(2)}%</div>
                 <Progress value={metric.rate} className="h-2" />
                 <div className="grid grid-cols-2 gap-2 text-sm">
                   <div>
@@ -95,7 +95,7 @@ const RecoveryRateAnalysis = () => {
                   </div>
                   <div>
                     <span className="text-muted-foreground">Avg Days:</span>
-                    <span className="font-semibold text-primary ml-1">{metric.avgDays}</span>
+                    <span className="font-semibold text-primary ml-1">{metric.avgDays.toFixed(2)}</span>
                   </div>
                 </div>
               </div>
