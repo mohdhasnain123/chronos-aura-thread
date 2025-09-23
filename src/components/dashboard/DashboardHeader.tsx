@@ -9,14 +9,60 @@ import { useNavigate } from "react-router-dom";
 const DashboardHeader = () => {
   const [notificationCount, setNotificationCount] = useState(1);
   const [showNotificationModal, setShowNotificationModal] = useState(false);
+  const [notifications, setNotifications] = useState([
+    {
+      id: "alert-001",
+      patientName: "Bob Smith",
+      patientId: "PA-2035-08471",
+      age: 68,
+      condition: "Severe Knee Injury with Compartment Syndrome Risk",
+      severity: "Critical",
+      timeDetected: "4 minutes ago",
+      riskScore: 89,
+      location: "Downtown Fitness Center",
+      vitals: {
+        heartRate: "118 BPM",
+        bloodPressure: "145/88",
+        painLevel: "8/10"
+      },
+      status: "Active"
+    }
+  ]);
   const navigate = useNavigate();
 
   // Listen for reset notification count event from PatientAlert
   useEffect(() => {
-    const handleResetNotificationCount = () => setNotificationCount(1);
+    const handleResetNotificationCount = () => setNotificationCount(0);
+    const handleAddPreAuthNotification = () => {
+      // Add pre-auth approved notification
+      const preAuthNotification = {
+        id: "alert-002",
+        patientName: "Bob Smith",
+        patientId: "PA-2035-08471",
+        age: 68,
+        condition: "Pre-Authorization Approved",
+        severity: "Info",
+        timeDetected: "Just now",
+        riskScore: 0,
+        location: "Downtown Fitness Center",
+        vitals: {
+          heartRate: "N/A",
+          bloodPressure: "N/A",
+          painLevel: "N/A"
+        },
+        status: "Approved"
+      };
+      
+      setNotifications(prev => [preAuthNotification, ...prev]);
+      setNotificationCount(1);
+    };
     
     window.addEventListener('resetNotificationCount', handleResetNotificationCount);
-    return () => window.removeEventListener('resetNotificationCount', handleResetNotificationCount);
+    window.addEventListener('addPreAuthNotification', handleAddPreAuthNotification);
+    return () => {
+      window.removeEventListener('resetNotificationCount', handleResetNotificationCount);
+      window.removeEventListener('addPreAuthNotification', handleAddPreAuthNotification);
+    };
   }, []);
 
   const handleNotificationClick = () => {
@@ -76,6 +122,7 @@ const DashboardHeader = () => {
         open={showNotificationModal}
         onOpenChange={setShowNotificationModal}
         onAlertClick={handleAlertClick}
+        notifications={notifications}
       />
     </header>
   );

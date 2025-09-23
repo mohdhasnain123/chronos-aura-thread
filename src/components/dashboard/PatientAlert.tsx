@@ -228,9 +228,9 @@ const PatientAlert = ({ onBack, onViewSpecialists }: PatientAlertProps) => {
       setPreAuthStatus("approved");
       setShowTreatmentPlan(true);
       
-      // Reset notification count back to 1
-      const resetEvent = new CustomEvent('resetNotificationCount');
-      window.dispatchEvent(resetEvent);
+      // Add new pre-auth notification after 3 seconds
+      const addNotificationEvent = new CustomEvent('addPreAuthNotification');
+      window.dispatchEvent(addNotificationEvent);
     }, 3000);
 
     return () => clearTimeout(timer);

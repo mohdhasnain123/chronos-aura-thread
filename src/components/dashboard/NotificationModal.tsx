@@ -14,28 +14,16 @@ interface NotificationModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onAlertClick: () => void;
+  notifications: any[];
 }
 
-const NotificationModal = ({ open, onOpenChange, onAlertClick }: NotificationModalProps) => {
-  const alerts = [
-    {
-      id: "alert-001",
-      patientName: "Bob Smith",
-      patientId: "PA-2035-08471",
-      age: 68,
-      condition: "Severe Knee Injury with Compartment Syndrome Risk",
-      severity: "Critical",
-      timeDetected: "4 minutes ago",
-      riskScore: 89,
-      location: "Downtown Fitness Center",
-      vitals: {
-        heartRate: "118 BPM",
-        bloodPressure: "145/88",
-        painLevel: "8/10"
-      },
-      status: "Active"
-    }
-  ];
+const NotificationModal = ({ open, onOpenChange, onAlertClick, notifications }: NotificationModalProps) => {
+  const handleEmergencyDetailsClick = () => {
+    // Reset notification count to 0
+    const resetEvent = new CustomEvent('resetNotificationCount');
+    window.dispatchEvent(resetEvent);
+    onAlertClick();
+  };
 
   const getSeverityColor = (severity: string) => {
     switch (severity.toLowerCase()) {
@@ -56,7 +44,7 @@ const NotificationModal = ({ open, onOpenChange, onAlertClick }: NotificationMod
             <Bell className="h-5 w-5 text-primary" />
             <span>Emergency Notifications</span>
             <Badge className="bg-destructive text-destructive-foreground animate-pulse">
-              {alerts.length} Active
+              {notifications.length} Active
             </Badge>
           </SheetTitle>
           <SheetDescription>
@@ -65,7 +53,7 @@ const NotificationModal = ({ open, onOpenChange, onAlertClick }: NotificationMod
         </SheetHeader>
 
         <div className="mt-6 space-y-4">
-          {alerts.map((alert) => (
+          {notifications.map((alert) => (
             <Card key={alert.id} className="border-destructive/20 shadow-lg hover:shadow-xl transition-shadow cursor-pointer">
               <CardHeader className="pb-2">
                 <div className="flex items-center justify-between">
@@ -109,21 +97,21 @@ const NotificationModal = ({ open, onOpenChange, onAlertClick }: NotificationMod
                 <div className="grid grid-cols-3 gap-2 text-xs">
                   <div className="p-2 bg-background rounded border border-border text-center">
                     <Heart className="h-3 w-3 mx-auto mb-1 text-destructive" />
-                    <div className="font-medium text-foreground">{alert.vitals.heartRate}</div>
+                    <div className="font-medium text-foreground">{alert.vitals?.heartRate || 'N/A'}</div>
                     <div className="text-muted-foreground">HR</div>
                   </div>
                   <div className="p-2 bg-background rounded border border-border text-center">
-                    <div className="font-medium text-foreground">{alert.vitals.bloodPressure}</div>
+                    <div className="font-medium text-foreground">{alert.vitals?.bloodPressure || 'N/A'}</div>
                     <div className="text-muted-foreground">BP</div>
                   </div>
                   <div className="p-2 bg-background rounded border border-border text-center">
-                    <div className="font-medium text-foreground">{alert.vitals.painLevel}</div>
+                    <div className="font-medium text-foreground">{alert.vitals?.painLevel || 'N/A'}</div>
                     <div className="text-muted-foreground">Pain</div>
                   </div>
                 </div>
 
                 <Button 
-                  onClick={onAlertClick}
+                  onClick={handleEmergencyDetailsClick}
                   className="w-full bg-destructive hover:bg-destructive/90 text-destructive-foreground"
                 >
                   View Emergency Details
