@@ -52,7 +52,7 @@ const NotificationModal = ({ open, onOpenChange, onAlertClick, notifications }: 
           </SheetDescription>
         </SheetHeader>
 
-        <div className="mt-6 space-y-4">
+        <div className="mt-6 space-y-4 max-h-[60vh] overflow-y-auto pr-2">
           {notifications.map((alert) => (
             <Card key={alert.id} className="border-destructive/20 shadow-lg hover:shadow-xl transition-shadow cursor-pointer">
               <CardHeader className="pb-2">
