@@ -8,11 +8,14 @@ interface CriticalPatientsListProps {
   onSelectPatient: (patientId: string) => void;
 }
 
-const CriticalPatientsList = ({ onBack, onSelectPatient }: CriticalPatientsListProps) => {
+const CriticalPatientsList = ({
+  onBack,
+  onSelectPatient,
+}: CriticalPatientsListProps) => {
   const criticalPatients = [
     {
-      id: "PA-2024-001",
-      name: "Bob Anderson",
+      id: "PA-2035-08471",
+      name: "Bob Smith",
       age: 58,
       condition: "Severe Knee Injury with Compartment Syndrome Risk",
       severity: "CRITICAL",
@@ -20,12 +23,12 @@ const CriticalPatientsList = ({ onBack, onSelectPatient }: CriticalPatientsListP
       vitals: {
         heartRate: "118 BPM",
         bloodPressure: "145/88",
-        oxygen: "96%"
+        oxygen: "96%",
       },
-      riskScore: 89
+      riskScore: 89,
     },
     // {
-    //   id: "PA-2024-002", 
+    //   id: "PA-2024-002",
     //   name: "Sarah Williams",
     //   age: 45,
     //   condition: "Severe Respiratory Distress",
@@ -33,7 +36,7 @@ const CriticalPatientsList = ({ onBack, onSelectPatient }: CriticalPatientsListP
     //   timeDetected: "5 minutes ago",
     //   vitals: {
     //     heartRate: "134 BPM",
-    //     bloodPressure: "95/60", 
+    //     bloodPressure: "95/60",
     //     oxygen: "78%"
     //   },
     //   riskScore: 92
@@ -43,7 +46,7 @@ const CriticalPatientsList = ({ onBack, onSelectPatient }: CriticalPatientsListP
     //   name: "Michael Chen",
     //   age: 67,
     //   condition: "Stroke Alert",
-    //   severity: "CRITICAL", 
+    //   severity: "CRITICAL",
     //   timeDetected: "8 minutes ago",
     //   vitals: {
     //     heartRate: "98 BPM",
@@ -56,8 +59,10 @@ const CriticalPatientsList = ({ onBack, onSelectPatient }: CriticalPatientsListP
 
   const getSeverityColor = (severity: string) => {
     switch (severity) {
-      case "CRITICAL": return "bg-destructive text-destructive-foreground";
-      default: return "bg-warning text-warning-foreground";
+      case "CRITICAL":
+        return "bg-destructive text-destructive-foreground";
+      default:
+        return "bg-warning text-warning-foreground";
     }
   };
 
@@ -74,7 +79,9 @@ const CriticalPatientsList = ({ onBack, onSelectPatient }: CriticalPatientsListP
               <AlertTriangle className="h-6 w-6 text-destructive" />
               <span>Critical Patient Alerts</span>
             </h1>
-            <p className="text-muted-foreground">Patients requiring immediate medical attention</p>
+            <p className="text-muted-foreground">
+              Patients requiring immediate medical attention
+            </p>
           </div>
         </div>
         <Badge className="bg-destructive text-destructive-foreground text-sm px-3 py-1">
@@ -85,8 +92,8 @@ const CriticalPatientsList = ({ onBack, onSelectPatient }: CriticalPatientsListP
       {/* Critical Patients List */}
       <div className="grid grid-cols-1 gap-4">
         {criticalPatients.map((patient) => (
-          <Card 
-            key={patient.id} 
+          <Card
+            key={patient.id}
             className="bg-gradient-card border-destructive/20 shadow-lg hover:shadow-xl transition-all cursor-pointer hover:scale-[1.02]"
             onClick={() => onSelectPatient(patient.id)}
           >
@@ -95,16 +102,26 @@ const CriticalPatientsList = ({ onBack, onSelectPatient }: CriticalPatientsListP
                 <div className="flex-1">
                   <div className="flex items-center justify-between mb-3">
                     <div>
-                      <h3 className="text-lg font-semibold text-foreground">{patient.name}</h3>
-                      <p className="text-sm text-muted-foreground">Age: {patient.age} • ID: {patient.id}</p>
+                      <h3 className="text-lg font-semibold text-foreground">
+                        {patient.name}
+                      </h3>
+                      <p className="text-sm text-muted-foreground">
+                        Age: {patient.age} • ID: {patient.id}
+                      </p>
                     </div>
-                    <Badge className={`${getSeverityColor(patient.severity)} text-xs`}>
+                    <Badge
+                      className={`${getSeverityColor(
+                        patient.severity
+                      )} text-xs`}
+                    >
                       {patient.severity}
                     </Badge>
                   </div>
-                  
+
                   <div className="mb-4">
-                    <p className="font-medium text-destructive mb-1">{patient.condition}</p>
+                    <p className="font-medium text-destructive mb-1">
+                      {patient.condition}
+                    </p>
                     <div className="flex items-center text-sm text-muted-foreground">
                       <Clock className="h-4 w-4 mr-1" />
                       <span>Detected {patient.timeDetected}</span>
@@ -114,15 +131,21 @@ const CriticalPatientsList = ({ onBack, onSelectPatient }: CriticalPatientsListP
                   <div className="grid grid-cols-3 gap-4 text-sm">
                     <div>
                       <p className="text-muted-foreground">Heart Rate</p>
-                      <p className="font-semibold text-foreground">{patient.vitals.heartRate}</p>
+                      <p className="font-semibold text-foreground">
+                        {patient.vitals.heartRate}
+                      </p>
                     </div>
                     <div>
                       <p className="text-muted-foreground">Blood Pressure</p>
-                      <p className="font-semibold text-foreground">{patient.vitals.bloodPressure}</p>
+                      <p className="font-semibold text-foreground">
+                        {patient.vitals.bloodPressure}
+                      </p>
                     </div>
                     <div>
                       <p className="text-muted-foreground">SpO2</p>
-                      <p className="font-semibold text-foreground">{patient.vitals.oxygen}</p>
+                      <p className="font-semibold text-foreground">
+                        {patient.vitals.oxygen}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -130,9 +153,13 @@ const CriticalPatientsList = ({ onBack, onSelectPatient }: CriticalPatientsListP
                 <div className="ml-6 text-center">
                   <div className="flex items-center justify-center space-x-1 mb-2">
                     <TrendingUp className="h-4 w-4 text-destructive" />
-                    <span className="text-sm text-muted-foreground">Risk Score</span>
+                    <span className="text-sm text-muted-foreground">
+                      Risk Score
+                    </span>
                   </div>
-                  <div className="text-2xl font-bold text-destructive">{patient.riskScore}%</div>
+                  <div className="text-2xl font-bold text-destructive">
+                    {patient.riskScore}%
+                  </div>
                 </div>
               </div>
             </CardContent>

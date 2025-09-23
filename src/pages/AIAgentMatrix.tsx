@@ -1,9 +1,10 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { Brain, Bot, Zap, Target, Users, MessageSquare, TrendingUp, Activity, ArrowLeft } from "lucide-react";
+import { Brain, Bot, Zap, Target, Users, MessageSquare, TrendingUp, Activity, ArrowLeft, Network } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import AgenticMeshDiagram from "@/components/dashboard/AgenticMeshDiagram";
 
 const AIAgentMatrix = () => {
   const navigate = useNavigate();
@@ -334,6 +335,22 @@ const AIAgentMatrix = () => {
               </div>
             ))}
           </div>
+        </CardContent>
+      </Card>
+
+      {/* Agentic Mesh Diagram */}
+      <Card className="bg-gradient-card border-border shadow-glow">
+        <CardHeader>
+          <CardTitle className="flex items-center space-x-2">
+            <Network className="h-5 w-5 text-primary" />
+            <span>Agentic Mesh Network</span>
+          </CardTitle>
+          <p className="text-sm text-muted-foreground mt-2">
+            Interactive visualization of AI agent interconnections and collaborative workflows
+          </p>
+        </CardHeader>
+        <CardContent>
+          <AgenticMeshDiagram />
         </CardContent>
       </Card>
     </div>

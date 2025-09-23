@@ -30,7 +30,7 @@ const AIProviderAssistant = ({ onBack }: AIProviderAssistantProps) => {
   const quickActions = [
     { title: "Schedule Emergency Surgery", command: "Book OR for cardiac emergency" },
     { title: "Find Specialist", command: "Show available cardiologists" },
-    { title: "Patient Status", command: "Update on Bob Anderson" },
+    { title: "Patient Status", command: "Update on Bob Smith" },
     { title: "Resource Check", command: "ICU bed availability" }
   ];
 
@@ -46,7 +46,7 @@ const AIProviderAssistant = ({ onBack }: AIProviderAssistantProps) => {
     if (!isListening) {
       // Simulate voice recognition
       setTimeout(() => {
-        setCurrentQuery("Show me Bob Anderson's current vitals");
+        setCurrentQuery("Show me Bob Smith's current vitals");
         setIsListening(false);
       }, 3000);
     }

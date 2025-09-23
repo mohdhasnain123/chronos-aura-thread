@@ -84,80 +84,101 @@ const chartConfig = {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-      <Card className="bg-card/50 backdrop-blur-sm border-border/50 shadow-glow">
+      {/* Support Staff by Category */}
+      <Card className="bg-card/50 backdrop-blur-sm border-border/50 shadow-glow h-full flex flex-col">
         <CardHeader>
           <CardTitle className="text-lg font-semibold text-foreground">
             Support Staff by Category
           </CardTitle>
         </CardHeader>
-        <CardContent>
-          <ChartContainer config={chartConfig} className="h-64">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart 
-                data={staffData} 
-                margin={{ top: 20, right: 30, left: 20, bottom: 60 }}
+
+        {/* Side-by-side content */}
+        <CardContent className="flex-1 flex flex-col md:flex-row gap-8 items-start">
+          {/* Chart area */}
+          <ChartContainer
+            config={chartConfig}
+            className="flex-1 md:max-w-[65%] min-h-[260px]"
+          >
+            {/* Use aspect to avoid forced tall height */}
+            <ResponsiveContainer width="100%" aspect={2}>
+              <BarChart
+                data={staffData}
                 onClick={(data) => handleChartClick(data, "staff")}
+                // Reduce bottom margin; rely on XAxis height for label space
+                margin={{ top: 12, right: 20, left: 12, bottom: 8 }}
               >
-                <XAxis 
-                  dataKey="category" 
+                <XAxis
+                  dataKey="category"
                   angle={-45}
                   textAnchor="end"
-                  height={60}
+                  height={48}               // 44–52 works well for -45°
                   fontSize={12}
                   stroke="hsl(var(--muted-foreground))"
                 />
                 <YAxis fontSize={12} stroke="hsl(var(--muted-foreground))" />
                 <ChartTooltip content={<ChartTooltipContent />} />
-                <Bar 
-                  dataKey="available" 
-                  stackId="a" 
-                  fill="hsl(var(--chart-1))" 
+                <Bar
+                  dataKey="available"
+                  stackId="a"
+                  fill="hsl(var(--chart-1))"
                   className="chart-interactive"
                   onClick={(data) => handleChartClick(data, "available")}
                 />
-                <Bar 
-                  dataKey="busy" 
-                  stackId="a" 
-                  fill="hsl(var(--chart-2))" 
+                <Bar
+                  dataKey="busy"
+                  stackId="a"
+                  fill="hsl(var(--chart-2))"
                   className="chart-interactive"
                   onClick={(data) => handleChartClick(data, "busy")}
                 />
-                <Bar 
-                  dataKey="offline" 
-                  stackId="a" 
-                  fill="hsl(var(--chart-3))" 
+                <Bar
+                  dataKey="offline"
+                  stackId="a"
+                  fill="hsl(var(--chart-3))"
                   className="chart-interactive"
                   onClick={(data) => handleChartClick(data, "offline")}
                 />
               </BarChart>
             </ResponsiveContainer>
           </ChartContainer>
-          <div className="flex justify-center gap-6 mt-4">
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded bg-chart-1"></div>
-              <span className="text-sm text-muted-foreground">Available</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded bg-chart-2"></div>
-              <span className="text-sm text-muted-foreground">Busy</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded bg-chart-3"></div>
-              <span className="text-sm text-muted-foreground">Offline</span>
+
+          {/* Legend area */}
+          <div className="flex-1 md:max-w-[35%] md:mt-10 mt-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-3">
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded bg-chart-1" />
+                <span className="text-sm text-muted-foreground">Available</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded bg-chart-2" />
+                <span className="text-sm text-muted-foreground">Busy</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded bg-chart-3" />
+                <span className="text-sm text-muted-foreground">Offline</span>
+              </div>
             </div>
           </div>
         </CardContent>
       </Card>
 
-      <Card className="bg-card/50 backdrop-blur-sm border-border/50 shadow-glow">
+      {/* Staff Availability Overview */}
+      <Card className="bg-card/50 backdrop-blur-sm border-border/50 shadow-glow h-full flex flex-col">
         <CardHeader>
           <CardTitle className="text-lg font-semibold text-foreground">
             Staff Availability Overview
           </CardTitle>
         </CardHeader>
-        <CardContent>
-          <ChartContainer config={chartConfig} className="h-64">
-            <ResponsiveContainer width="80%" height="80%">
+
+        {/* Side-by-side content */}
+        <CardContent className="flex-1 flex flex-col md:flex-row gap-8 items-start">
+          {/* Chart side */}
+          <ChartContainer
+            config={chartConfig}
+            className="flex-1 md:max-w-[50%] h-64"
+          >
+            {/* Fill the container for consistent sizing */}
+            <ResponsiveContainer width="100%" height="100%">
               <PieChart onClick={(data) => handleChartClick(data, "staff-overview")}>
                 <Pie
                   data={overallStaffStatus}
@@ -170,8 +191,8 @@ const chartConfig = {
                   onClick={(data) => handleChartClick(data, "pie-slice")}
                 >
                   {overallStaffStatus.map((entry, index) => (
-                    <Cell 
-                      key={`cell-${index}`} 
+                    <Cell
+                      key={`cell-${index}`}
                       fill={entry.color}
                       className="chart-interactive"
                       stroke="hsl(var(--background))"
@@ -183,19 +204,28 @@ const chartConfig = {
               </PieChart>
             </ResponsiveContainer>
           </ChartContainer>
-          <div className="space-y-2 mt-2">
+
+          {/* Legend / list side */}
+          <div className="flex-1 md:max-w-[50%] space-y-2 mt-12">
             {overallStaffStatus.map((item) => (
-              <div key={item.name} className="flex items-center justify-between p-2 bg-muted/30 rounded-lg">
+              <div
+                key={item.name}
+                className="flex items-center justify-between p-2 bg-muted/30 rounded-lg"
+              >
                 <div className="flex items-center gap-3">
-                  <div 
-                    className="w-3 h-3 rounded-full" 
+                  <div
+                    className="w-3 h-3 rounded-full"
                     style={{ backgroundColor: item.color }}
-                  ></div>
-                  <span className="text-sm font-medium text-foreground">{item.name}</span>
+                  />
+                  <span className="text-sm font-medium text-foreground">
+                    {item.name}
+                  </span>
                 </div>
                 <div className="text-right">
                   {/* <div className="text-lg font-bold text-foreground">{item.value}</div> */}
-                  <div className="text-xs text-muted-foreground">{item.percentage}%</div>
+                  <div className="text-xs text-muted-foreground">
+                    {item.percentage}%
+                  </div>
                 </div>
               </div>
             ))}
@@ -203,6 +233,7 @@ const chartConfig = {
         </CardContent>
       </Card>
     </div>
+
   );
 };
 

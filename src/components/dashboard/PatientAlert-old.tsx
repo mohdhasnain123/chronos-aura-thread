@@ -17,9 +17,6 @@ import {
   X,
   DollarSign,
   Brain,
-  FileText,
-  CheckCircle,
-  Stethoscope,
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -81,95 +78,6 @@ const PatientAlert = ({ onBack, onViewSpecialists }: PatientAlertProps) => {
     securityHash: "0xA7B3...F891",
   };
 
-  const actualTreatmentPlan = {
-    phase1: {
-      title: "Emergency Department (0-30 minutes)",
-      tasks: [
-        {
-          task: "Triage assessment and vital signs",
-          status: "pending",
-          priority: "critical",
-        },
-        {
-          task: "Pain management protocol initiation",
-          status: "pending",
-          priority: "high",
-        },
-        {
-          task: "X-ray imaging (AP and lateral views)",
-          status: "pending",
-          priority: "high",
-        },
-        {
-          task: "Blood work: CBC, BMP, PT/PTT",
-          status: "pending",
-          priority: "medium",
-        },
-        {
-          task: "IV access and fluid resuscitation",
-          status: "pending",
-          priority: "high",
-        },
-      ],
-    },
-    phase2: {
-      title: "Diagnostic Phase (30-90 minutes)",
-      tasks: [
-        {
-          task: "MRI for detailed soft tissue assessment",
-          status: "scheduled",
-          priority: "high",
-        },
-        {
-          task: "Compartment pressure measurement",
-          status: "scheduled",
-          priority: "critical",
-        },
-        {
-          task: "Orthopedic surgeon consultation",
-          status: "scheduled",
-          priority: "critical",
-        },
-        {
-          task: "Anesthesiology consultation",
-          status: "scheduled",
-          priority: "medium",
-        },
-        {
-          task: "Pre-operative clearance if surgery needed",
-          status: "scheduled",
-          priority: "medium",
-        },
-      ],
-    },
-    phase3: {
-      title: "Treatment Phase (90+ minutes)",
-      tasks: [
-        {
-          task: "Surgical intervention (ORIF if indicated)",
-          status: "planned",
-          priority: "critical",
-        },
-        {
-          task: "Post-operative monitoring",
-          status: "planned",
-          priority: "high",
-        },
-        {
-          task: "Physical therapy consultation",
-          status: "planned",
-          priority: "medium",
-        },
-        { task: "Discharge planning", status: "planned", priority: "low" },
-        {
-          task: "Follow-up appointment scheduling",
-          status: "planned",
-          priority: "low",
-        },
-      ],
-    },
-  };
-
   const [vitals, setVitals] = useState([
     {
       label: "Heart Rate",
@@ -204,8 +112,6 @@ const PatientAlert = ({ onBack, onViewSpecialists }: PatientAlertProps) => {
   const [showVideoCall, setShowVideoCall] = useState(false);
   const [eta, setEta] = useState(ambulanceData.eta);
   const [showBillingModal, setShowBillingModal] = useState(false);
-  const [preAuthStatus, setPreAuthStatus] = useState("in progress");
-  const [showTreatmentPlan, setShowTreatmentPlan] = useState(false);
 
   // Update ETA countdown every second
   useEffect(() => {
@@ -216,31 +122,19 @@ const PatientAlert = ({ onBack, onViewSpecialists }: PatientAlertProps) => {
     return () => clearInterval(interval);
   }, []);
 
-  const formatTime = (seconds: number) => {
+  const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
     return `${mins}:${secs.toString().padStart(2, "0")}`;
   };
-
-  // Handle the 3-second sequence for PRE-AUTH approval and treatment plan
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setPreAuthStatus("approved");
-      setShowTreatmentPlan(true);
-      
-      // Reset notification count back to 1
-      const resetEvent = new CustomEvent('resetNotificationCount');
-      window.dispatchEvent(resetEvent);
-    }, 3000);
-
-    return () => clearTimeout(timer);
-  }, []);
 
   // Live updating vitals every second
   useEffect(() => {
     const interval = setInterval(() => {
       setVitals((prevVitals) =>
         prevVitals.map((vital) => {
+          const randomVariation = Math.random() * 0.1 - 0.05; // ±5% variation
+
           switch (vital.label) {
             case "Heart Rate":
               const baseHR = 118;
@@ -349,32 +243,6 @@ const PatientAlert = ({ onBack, onViewSpecialists }: PatientAlertProps) => {
     }
   };
 
-  const getPriorityColor = (priority: string) => {
-    switch (priority) {
-      case "critical":
-        return "border-l-destructive bg-destructive/5";
-      case "high":
-        return "border-l-warning bg-warning/5";
-      case "medium":
-        return "border-l-info bg-info/5";
-      default:
-        return "border-l-muted bg-muted/5";
-    }
-  };
-
-  const getStatusIcon = (status: string) => {
-    switch (status) {
-      case "completed":
-        return <CheckCircle className="h-4 w-4 text-success" />;
-      case "pending":
-        return <Clock className="h-4 w-4 text-warning" />;
-      case "scheduled":
-        return <Activity className="h-4 w-4 text-info" />;
-      default:
-        return <FileText className="h-4 w-4 text-muted-foreground" />;
-    }
-  };
-
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -395,15 +263,18 @@ const PatientAlert = ({ onBack, onViewSpecialists }: PatientAlertProps) => {
           </div>
         </div>
         <div className="flex items-center space-x-2">
-          <Badge className={preAuthStatus === "approved" ? "bg-success text-success-foreground text-black" : "bg-warning text-warning-foreground"}>
-            PRE-AUTH {preAuthStatus === "approved" ? "approved" : "approval in progress"}
+          <Badge className="bg-warning text-warning-foreground text-black">
+            PRE-AUTH approval in progress
           </Badge>
           <Badge className="bg-destructive text-destructive-foreground animate-pulse">
             CRITICAL
           </Badge>
-          <Badge className="bg-warning text-warning-foreground">
+          <Badge className="bg-warning text-warning-foreground text-black">
             Risk: {patientData.riskScore}%
           </Badge>
+          {/* <Badge className="bg-success text-black">
+            Payer: Pre-Approved
+          </Badge> */}
         </div>
       </div>
 
@@ -436,15 +307,9 @@ const PatientAlert = ({ onBack, onViewSpecialists }: PatientAlertProps) => {
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Payer</span>
+                    <span className="text-muted-foreground">Payer & Plan:</span>
                     <span className="font-medium text-foreground text-sm">
                       NextGen Health Payer
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Plan</span>
-                    <span className="font-medium text-foreground text-sm">
-                      Medicaid Plan
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
@@ -469,6 +334,10 @@ const PatientAlert = ({ onBack, onViewSpecialists }: PatientAlertProps) => {
                   <Phone className="h-4 w-4 mr-2" />
                   Emergency Call
                 </Button>
+                {/* <Button variant="outline" className="w-full border-warning text-warning hover:bg-warning hover:text-black">
+                  <Users className="h-4 w-4 mr-2" />
+                  Alert Medical Team
+                </Button> */}
               </div>
             </div>
           </CardContent>
@@ -480,7 +349,7 @@ const PatientAlert = ({ onBack, onViewSpecialists }: PatientAlertProps) => {
             <CardTitle className="flex items-center space-x-2">
               <Activity className="h-5 w-5 text-success animate-pulse" />
               <span>Live Wearable Data</span>
-              <Badge className="bg-success text-success-foreground">LIVE</Badge>
+              <Badge className="bg-success text-black text-xs">LIVE</Badge>
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -501,7 +370,9 @@ const PatientAlert = ({ onBack, onViewSpecialists }: PatientAlertProps) => {
                       {vital.value}
                     </p>
                     <Badge
-                      className={`${getStatusColor(vital.status)} text-xs`}
+                      className={`${getStatusColor(
+                        vital.status
+                      )} text-xs text-black`}
                     >
                       {vital.trend}
                     </Badge>
@@ -518,7 +389,7 @@ const PatientAlert = ({ onBack, onViewSpecialists }: PatientAlertProps) => {
             <CardTitle className="flex items-center space-x-2">
               <Shield className="h-5 w-5 text-primary" />
               <span>Medical Records</span>
-              <Badge className="bg-primary text-primary-foreground text-xs">
+              <Badge className="bg-primary text-black text-xs">
                 BLOCKCHAIN SECURED
               </Badge>
             </CardTitle>
@@ -554,9 +425,13 @@ const PatientAlert = ({ onBack, onViewSpecialists }: PatientAlertProps) => {
                 </div>
               </div>
 
+              {/* <Button variant="outline" className="w-full" onClick={onViewSpecialists}>
+                <Heart className="h-4 w-4 mr-2" />
+                View Orthopedic Specialists
+              </Button> */}
               <Button
                 variant="outline"
-                className="w-full border-warning text-warning hover:bg-warning hover:text-warning-foreground"
+                className="w-full border-warning text-warning hover:bg-warning hover:text-black"
               >
                 <Users className="h-4 w-4 mr-2" />
                 Alert Medical Team
@@ -578,7 +453,10 @@ const PatientAlert = ({ onBack, onViewSpecialists }: PatientAlertProps) => {
                 </div>
 
                 <div className="space-y-1">
-                  <p className="text-primary hover:text-primary/80 cursor-pointer font-medium flex items-center gap-2 text-sm">
+                  <p
+                    className="text-primary hover:text-primary/80 cursor-pointer font-medium flex items-center gap-2 text-sm"
+                    // onClick={() => setShowVideoCall(true)}
+                  >
                     <Video className="h-4 w-4" />
                     Video Consultation with Orthopedic Specialist
                   </p>
@@ -600,7 +478,7 @@ const PatientAlert = ({ onBack, onViewSpecialists }: PatientAlertProps) => {
             <div className="flex items-center space-x-2">
               <Truck className="h-5 w-5 text-warning" />
               <span>Ambulance Treatment Plan</span>
-              <Badge className="bg-warning text-warning-foreground">
+              <Badge className="bg-warning text-black">
                 {ambulanceData.status}
               </Badge>
             </div>
@@ -679,101 +557,6 @@ const PatientAlert = ({ onBack, onViewSpecialists }: PatientAlertProps) => {
           </div>
         </CardContent>
       </Card>
-
-      {/* Actual Treatment Plan - NEW SECTION */}
-      {showTreatmentPlan && (
-        <Card className="bg-gradient-card border-border shadow-lg animate-fade-in">
-        <CardHeader>
-          <CardTitle className="flex items-center space-x-2">
-            <Stethoscope className="h-5 w-5 text-primary" />
-            <span>Actual Treatment Plan</span>
-            <Badge className="bg-primary text-primary-foreground">
-              PROTOCOL ACTIVE
-            </Badge>
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-6">
-            {Object.entries(actualTreatmentPlan).map(([phaseKey, phase]) => (
-              <div key={phaseKey} className="space-y-3">
-                <h3 className="text-lg font-semibold text-foreground border-b border-border pb-2">
-                  {phase.title}
-                </h3>
-                <div className="grid gap-3">
-                  {phase.tasks.map((task, index) => (
-                    <div
-                      key={index}
-                      className={`p-3 rounded-lg border-l-4 ${getPriorityColor(
-                        task.priority
-                      )} border border-border`}
-                    >
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-3">
-                          {getStatusIcon(task.status)}
-                          <span className="text-sm font-medium text-foreground">
-                            {task.task}
-                          </span>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Badge
-                            variant="outline"
-                            className={`text-xs ${
-                              task.priority === "critical"
-                                ? "border-destructive text-destructive"
-                                : task.priority === "high"
-                                ? "border-warning text-warning"
-                                : task.priority === "medium"
-                                ? "border-info text-info"
-                                : "border-muted-foreground text-muted-foreground"
-                            }`}
-                          >
-                            {task.priority}
-                          </Badge>
-                          <Badge
-                            variant="secondary"
-                            className={`text-xs ${
-                              task.status === "completed"
-                                ? "bg-success text-success-foreground"
-                                : task.status === "pending"
-                                ? "bg-warning text-warning-foreground"
-                                : task.status === "scheduled"
-                                ? "bg-info text-info-foreground"
-                                : "bg-muted text-muted-foreground"
-                            }`}
-                          >
-                            {task.status}
-                          </Badge>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-6 p-4 bg-info/10 rounded-lg border border-info/20">
-            <div className="flex items-center space-x-2 mb-2">
-              <Activity className="h-4 w-4 text-info" />
-              <span className="font-semibold text-info">
-                Treatment Progress
-              </span>
-            </div>
-            <div className="space-y-2">
-              <div className="flex justify-between text-sm">
-                <span>Overall Completion</span>
-                <span className="font-medium">15%</span>
-              </div>
-              <Progress value={15} className="h-2" />
-              <p className="text-xs text-muted-foreground">
-                Patient arrival in progress. Emergency protocols will be
-                activated upon admission.
-              </p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-      )}
 
       {/* Selected Specialists */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -982,6 +765,73 @@ const PatientAlert = ({ onBack, onViewSpecialists }: PatientAlertProps) => {
         </Button>
       </div>
 
+      {/* Diagnostic & Treatment Protocols */}
+      {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <Card className="bg-gradient-card border-border shadow-lg">
+          <CardHeader>
+            <CardTitle className="text-sm font-semibold text-warning">Immediate Actions</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ul className="space-y-2">
+              {treatmentPlan.slice(0, 3).map((action, index) => (
+                <li key={index} className="text-xs text-muted-foreground flex items-start space-x-2">
+                  <Zap className="h-3 w-3 text-warning mt-0.5 flex-shrink-0" />
+                  <span>{action}</span>
+                </li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-gradient-card border-border shadow-lg">
+          <CardHeader>
+            <CardTitle className="text-sm font-semibold text-primary">Diagnostic Protocols</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ul className="space-y-2">
+              {diagnosticProtocols.slice(0, 3).map((protocol, index) => (
+                <li key={index} className="text-xs text-muted-foreground flex items-start space-x-2">
+                  <Activity className="h-3 w-3 text-primary mt-0.5 flex-shrink-0" />
+                  <span>{protocol}</span>
+                </li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-gradient-card border-border shadow-lg">
+          <CardHeader>
+            <CardTitle className="text-sm font-semibold text-success">Treatment Plan</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ul className="space-y-2">
+              {treatmentPlan.slice(3).map((treatment, index) => (
+                <li key={index} className="text-xs text-muted-foreground flex items-start space-x-2">
+                  <Heart className="h-3 w-3 text-success mt-0.5 flex-shrink-0" />
+                  <span>{treatment}</span>
+                </li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-gradient-card border-border shadow-lg">
+          <CardHeader>
+            <CardTitle className="text-sm font-semibold text-cyan-400">Monitoring Protocols</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ul className="space-y-2">
+              {monitoringProtocols.slice(0, 3).map((protocol, index) => (
+                <li key={index} className="text-xs text-muted-foreground flex items-start space-x-2">
+                  <Clock className="h-3 w-3 text-cyan-400 mt-0.5 flex-shrink-0" />
+                  <span>{protocol}</span>
+                </li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
+      </div> */}
+
       {/* Video Call Modal */}
       {showVideoCall && (
         <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
@@ -990,9 +840,7 @@ const PatientAlert = ({ onBack, onViewSpecialists }: PatientAlertProps) => {
               <CardTitle className="flex items-center space-x-2">
                 <Video className="h-5 w-5 text-success" />
                 <span>Dr. Sarah Chen - Orthopedic Surgeon</span>
-                <Badge className="bg-success text-success-foreground text-xs">
-                  LIVE
-                </Badge>
+                <Badge className="bg-success text-black text-xs">LIVE</Badge>
               </CardTitle>
               <Button
                 variant="ghost"
@@ -1026,7 +874,7 @@ const PatientAlert = ({ onBack, onViewSpecialists }: PatientAlertProps) => {
                       <Video className="h-4 w-4" />
                     </Button>
                   </div>
-                  <div className="text-white text-sm bg-black/50 px-3 py-1 rounded">
+                  <div className="text-black text-sm bg-black/50 px-3 py-1 rounded">
                     Discussing treatment options for knee injury...
                   </div>
                 </div>
@@ -1037,6 +885,32 @@ const PatientAlert = ({ onBack, onViewSpecialists }: PatientAlertProps) => {
       )}
     </div>
   );
+
+  // Live data simulation
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setVitals((prev) =>
+        prev.map((vital) => {
+          if (vital.label === "Heart Rate") {
+            const newValue = 118 + Math.floor(Math.random() * 8 - 4);
+            return { ...vital, value: `${newValue} BPM` };
+          }
+          if (vital.label === "Blood Pressure") {
+            const systolic = 145 + Math.floor(Math.random() * 6 - 3);
+            const diastolic = 88 + Math.floor(Math.random() * 4 - 2);
+            return { ...vital, value: `${systolic}/${diastolic}` };
+          }
+          if (vital.label === "SpO2") {
+            const newValue = 96 + Math.floor(Math.random() * 3 - 1);
+            return { ...vital, value: `${newValue}%` };
+          }
+          return vital;
+        })
+      );
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, []);
 };
 
 export default PatientAlert;

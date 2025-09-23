@@ -169,7 +169,7 @@ const CardiacSpecialists = ({ onBack }: CardiacSpecialistsProps) => {
           </Button>
           <div>
             <h1 className="text-2xl font-bold text-foreground">Emergency Cardiac Specialists</h1>
-            <p className="text-muted-foreground">Immediate consultation for Bob Anderson's cardiac emergency</p>
+            <p className="text-muted-foreground">Immediate consultation for Bob Smith's cardiac emergency</p>
           </div>
         </div>
         <Badge className="bg-destructive text-destructive-foreground">

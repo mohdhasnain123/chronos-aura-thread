@@ -114,19 +114,28 @@ const chartConfig = {
 
   return (
     <div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-2">
       <Card className="bg-card/50 backdrop-blur-sm border-border/50">
         <CardHeader>
           <CardTitle className="text-lg font-semibold text-foreground">
             Doctors by Specialty
           </CardTitle>
         </CardHeader>
-        <CardContent>
-          <ChartContainer config={chartConfig} className="h-64">
+
+        {/* Make content side-by-side on md+ screens */}
+        <CardContent className="flex flex-col md:flex-row gap-16 items-stretch">
+          {/* Chart area */}
+          <ChartContainer
+            config={chartConfig}
+            className="h-64 md:h-72 flex-1 md:max-w-[65%]"
+          >
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={specialtyData} margin={{ top: 20, right: 30, left: 20, bottom: 60 }}>
-                <XAxis 
-                  dataKey="specialty" 
+              <BarChart
+                data={specialtyData}
+                margin={{ top: 20, right: 30, left: 20, bottom: 60 }}
+              >
+                <XAxis
+                  dataKey="specialty"
                   angle={-45}
                   textAnchor="end"
                   height={60}
@@ -140,18 +149,22 @@ const chartConfig = {
               </BarChart>
             </ResponsiveContainer>
           </ChartContainer>
-          <div className="flex justify-center gap-6 mt-4">
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded bg-chart-1"></div>
-              <span className="text-sm text-muted-foreground">Available</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded bg-chart-2"></div>
-              <span className="text-sm text-muted-foreground">Busy</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded bg-chart-3"></div>
-              <span className="text-sm text-muted-foreground">Offline</span>
+
+          {/* Legend area */}
+          <div className="flex-1 md:max-w-[35%] md:mt-14">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-3">
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded bg-chart-1" />
+                <span className="text-sm text-muted-foreground">Available</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded bg-chart-2" />
+                <span className="text-sm text-muted-foreground">Busy</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded bg-chart-3" />
+                <span className="text-sm text-muted-foreground">Offline</span>
+              </div>
             </div>
           </div>
         </CardContent>
@@ -163,9 +176,16 @@ const chartConfig = {
             Overall Availability Status
           </CardTitle>
         </CardHeader>
-        <CardContent>
-          <ChartContainer config={chartConfig} className="h-64">
-            <ResponsiveContainer width="70%" height="70%">
+
+        {/* Make CardContent a flex container */}
+        <CardContent className="flex flex-col md:flex-row gap-4 items-stretch">
+          {/* Chart side */}
+          <ChartContainer
+            config={chartConfig}
+            className="h-44 sm:h-56 md:h-64 flex-1 md:max-w-[50%]"
+          >
+            {/* Let the chart fill the container */}
+            <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
                   data={overallStatusData}
@@ -183,25 +203,35 @@ const chartConfig = {
               </PieChart>
             </ResponsiveContainer>
           </ChartContainer>
-          <div className="space-y-1 mt-2">
+
+          {/* List / legend side */}
+          <div className="flex-1 md:max-w-[50%] space-y-1 md:mt-14 mt-2">
             {overallStatusData.map((item) => (
-              <div key={item.name} className="flex items-center justify-between p-3 bg-muted/30 rounded-lg">
+              <div
+                key={item.name}
+                className="flex items-center justify-between p-3 bg-muted/30 rounded-lg"
+              >
                 <div className="flex items-center gap-3">
-                  <div 
-                    className="w-3 h-3 rounded-full" 
+                  <div
+                    className="w-3 h-3 rounded-full"
                     style={{ backgroundColor: item.color }}
-                  ></div>
-                  <span className="text-sm font-medium text-foreground">{item.name}</span>
+                  />
+                  <span className="text-sm font-medium text-foreground">
+                    {item.name}
+                  </span>
                 </div>
                 <div className="text-right">
                   {/* <div className="text-lg font-bold text-foreground">{item.value}</div> */}
-                  <div className="text-xs text-muted-foreground">{item.percentage}%</div>
+                  <div className="text-xs text-muted-foreground">
+                    {item.percentage}%
+                  </div>
                 </div>
               </div>
             ))}
           </div>
         </CardContent>
       </Card>
+
       </div>
       
       {/* Recent Activities */}

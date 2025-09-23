@@ -33,7 +33,7 @@ export function AppSidebar() {
         <div className="flex h-16 items-center px-4 border-b border-gray-800">
           <h2 className="text-xl font-bold text-white">Analytics</h2>
         </div>
-        <SidebarGroup className="px-4 py-4">
+        <SidebarGroup className="px-2 py-4">
           {/* <SidebarGroupLabel className="text-gray-400 mb-2">Analytics</SidebarGroupLabel> */}
           <SidebarGroupContent>
             <SidebarMenu>
@@ -46,12 +46,12 @@ export function AppSidebar() {
                         `flex items-center space-x-3 px-3 py-2 rounded-lg transition-colors ${
                           isActive 
                             ? 'bg-white text-black' 
-                            : 'text-gray-300 hover:text-white hover:bg-gray-800'
+                            : 'text-white hover:text-green-500 hover:bg-gray-800'
                         }`
                       }
                     >
-                      <item.icon className="h-4 w-4" />
-                      {state !== "collapsed" && <span>{item.title}</span>}
+                      <item.icon className="h-4 w-4 text-inherit" />
+                      {state !== "collapsed" && <span className="text-white hover:text-green-500">{item.title}</span>}
                     </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>

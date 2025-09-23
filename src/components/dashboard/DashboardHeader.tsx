@@ -2,8 +2,25 @@ import { Bell, Activity, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useState, useEffect } from "react";
 
 const DashboardHeader = () => {
+  const [notificationCount, setNotificationCount] = useState(1);
+
+  // Listen for reset notification count event from PatientAlert
+  useEffect(() => {
+    const handleResetNotificationCount = () => setNotificationCount(1);
+    
+    window.addEventListener('resetNotificationCount', handleResetNotificationCount);
+    return () => window.removeEventListener('resetNotificationCount', handleResetNotificationCount);
+  }, []);
+
+  const handleNotificationClick = () => {
+    setNotificationCount(0);
+    const notificationEvent = new CustomEvent('showNotifications');
+    window.dispatchEvent(notificationEvent);
+  };
+
   return (
     <header className="bg-gradient-card border-b border-border p-6 shadow-sm">
       <div className="flex items-center justify-between">
@@ -29,16 +46,15 @@ const DashboardHeader = () => {
           <Button 
             variant="outline" 
             size="icon" 
-            className="relative border-border hover:bg-muted animate-pulse"
-            onClick={() => {
-              const notificationEvent = new CustomEvent('showNotifications');
-              window.dispatchEvent(notificationEvent);
-            }}
+            className={`relative border-border hover:bg-muted ${notificationCount > 0 ? 'animate-pulse' : ''}`}
+            onClick={handleNotificationClick}
           >
-            <Bell className="h-4 w-4 animate-bounce" />
-            <span className="absolute -top-1 -right-1 bg-destructive text-destructive-foreground rounded-full text-xs w-5 h-5 flex items-center justify-center animate-pulse">
-              1
-            </span>
+            <Bell className={`h-4 w-4 ${notificationCount > 0 ? 'animate-bounce' : ''}`} />
+            {notificationCount > 0 && (
+              <span className="absolute -top-1 -right-1 bg-destructive text-destructive-foreground rounded-full text-xs w-5 h-5 flex items-center justify-center animate-pulse">
+                {notificationCount}
+              </span>
+            )}
           </Button>
           
           <Avatar className="h-10 w-10 ring-2 ring-primary ring-offset-2">
