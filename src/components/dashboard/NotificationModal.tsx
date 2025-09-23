@@ -19,9 +19,7 @@ interface NotificationModalProps {
 
 const NotificationModal = ({ open, onOpenChange, onAlertClick, notifications }: NotificationModalProps) => {
   const handleEmergencyDetailsClick = () => {
-    // Reset notification count to 0
-    const resetEvent = new CustomEvent('resetNotificationCount');
-    window.dispatchEvent(resetEvent);
+    // Don't reset notification count - keep it as is
     onAlertClick();
   };
 

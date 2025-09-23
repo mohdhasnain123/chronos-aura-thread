@@ -32,7 +32,6 @@ const DashboardHeader = () => {
 
   // Listen for reset notification count event from PatientAlert
   useEffect(() => {
-    const handleResetNotificationCount = () => setNotificationCount(0);
     const handleAddPreAuthNotification = () => {
       // Add pre-auth approved notification
       const preAuthNotification = {
@@ -54,19 +53,17 @@ const DashboardHeader = () => {
       };
       
       setNotifications(prev => [preAuthNotification, ...prev]);
-      setNotificationCount(1);
+      setNotificationCount(2); // Now we have 2 notifications
     };
     
-    window.addEventListener('resetNotificationCount', handleResetNotificationCount);
     window.addEventListener('addPreAuthNotification', handleAddPreAuthNotification);
     return () => {
-      window.removeEventListener('resetNotificationCount', handleResetNotificationCount);
       window.removeEventListener('addPreAuthNotification', handleAddPreAuthNotification);
     };
   }, []);
 
   const handleNotificationClick = () => {
-    setNotificationCount(0);
+    // Don't reset count when opening modal - keep the current count
     setShowNotificationModal(true);
   };
 
