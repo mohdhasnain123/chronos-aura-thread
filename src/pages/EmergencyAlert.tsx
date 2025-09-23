@@ -1,5 +1,6 @@
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import DashboardHeader from "@/components/dashboard/DashboardHeader";
 import PatientAlert from "@/components/dashboard/PatientAlert";
 import { useNavigate } from "react-router-dom";
 
@@ -17,6 +18,7 @@ const EmergencyAlert = () => {
 
   return (
     <div className="min-h-screen bg-gradient-bg">
+      <DashboardHeader />
       <div className="container mx-auto px-6 py-8">
         <PatientAlert 
           onBack={handleBack}
