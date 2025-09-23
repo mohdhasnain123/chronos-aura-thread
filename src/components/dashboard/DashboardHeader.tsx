@@ -3,9 +3,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useState, useEffect } from "react";
+import NotificationModal from "./NotificationModal";
+import { useNavigate } from "react-router-dom";
 
 const DashboardHeader = () => {
   const [notificationCount, setNotificationCount] = useState(1);
+  const [showNotificationModal, setShowNotificationModal] = useState(false);
+  const navigate = useNavigate();
 
   // Listen for reset notification count event from PatientAlert
   useEffect(() => {
@@ -17,8 +21,12 @@ const DashboardHeader = () => {
 
   const handleNotificationClick = () => {
     setNotificationCount(0);
-    const notificationEvent = new CustomEvent('showNotifications');
-    window.dispatchEvent(notificationEvent);
+    setShowNotificationModal(true);
+  };
+
+  const handleAlertClick = () => {
+    setShowNotificationModal(false);
+    navigate('/emergency-alert');
   };
 
   return (
@@ -63,6 +71,12 @@ const DashboardHeader = () => {
           </Avatar>
         </div>
       </div>
+      
+      <NotificationModal 
+        open={showNotificationModal}
+        onOpenChange={setShowNotificationModal}
+        onAlertClick={handleAlertClick}
+      />
     </header>
   );
 };

@@ -10,6 +10,7 @@ import PayerMixAnalytics from "./pages/PayerMixAnalytics";
 import RecoveryRateAnalysis from "./pages/RecoveryRateAnalysis";
 import IoMTDeviceNetwork from "./pages/IoMTDeviceNetwork";
 import AIAgentMatrix from "./pages/AIAgentMatrix";
+import EmergencyAlert from "./pages/EmergencyAlert";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -35,6 +36,7 @@ const App = () => (
                 <Route path="/recovery-rate" element={<RecoveryRateAnalysis />} />
                 <Route path="/iomt-network" element={<IoMTDeviceNetwork />} />
                 <Route path="/ai-agent-matrix" element={<AIAgentMatrix />} />
+                <Route path="/emergency-alert" element={<EmergencyAlert />} />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
               </Routes>
